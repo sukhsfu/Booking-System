@@ -2,14 +2,19 @@ package com.project.Provider.service;
 
 
 import com.project.Provider.model.Provider;
-import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
 public interface ProviderService {
 
-    Provider addNewProvider(Provider provider);
+    Provider addProvider(Provider provider);
 
-    Optional<Provider> getProvider(int id);
+    Optional<Provider> getProviderByID(int id);
+    List<Provider> getProviderByName(String name);
+
+    void deleteById(int id);
+
+    List<Provider> getAllProviders();
 }
