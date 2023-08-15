@@ -66,5 +66,25 @@ public class Controller {
         return new ResponseEntity<>(providers,httpStatus);
     }
 
+    @GetMapping("/getAllBySpecialization/{specialization}")
+    public ResponseEntity<List<Provider>> getAllBySpecialization(@PathVariable String specialization){
+        List<Provider> providers = providerService.getProviderBySpecialization(specialization);
+        HttpStatus httpStatus = HttpStatus.FOUND;
+        if (providers.isEmpty()){
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(providers,httpStatus);
+    }
+
+    @GetMapping("/getAllBySpecializationAndCity")
+    public ResponseEntity<List<Provider>> getAllBySpecializationAndCity(@RequestParam String specialization, @RequestParam String city){
+        List<Provider> providers = providerService.getProviderBySpecializationAndCity(specialization,city);
+        HttpStatus httpStatus = HttpStatus.FOUND;
+        if (providers.isEmpty()){
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(providers,httpStatus);
+    }
+
 
 }

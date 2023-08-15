@@ -17,4 +17,8 @@ public interface ProviderService {
     void deleteById(int id);
 
     List<Provider> getAllProviders();
+
+    List<Provider> getProviderBySpecialization(String specialization);
+
+    List<Provider> getProviderBySpecializationAndCity(String specialization, String city);
 }

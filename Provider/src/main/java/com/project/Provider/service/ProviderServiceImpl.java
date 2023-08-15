@@ -45,5 +45,15 @@ public class ProviderServiceImpl implements ProviderService {
         return repository.findAll();
     }
 
+    @Override
+    public List<Provider> getProviderBySpecialization(String specialization) {
+        return repository.findBySpecializationContaining(specialization);
+    }
+
+    @Override
+    public List<Provider> getProviderBySpecializationAndCity(String specialization, String city) {
+        return repository.findBySpecializationAndCity(specialization,city);
+    }
+
 
 }
