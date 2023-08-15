@@ -14,18 +14,21 @@ public class Provider {
     private String email;
     private String phone;
     private String specialization;
-    private String location_id;
-    private String price;
+    private double price;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     public Provider() {
     }
 
-    public Provider(String name, String email, String phone, String specialization, String location_id, String price) {
+    public Provider(String name, String email, String phone, String specialization, Location location, double price) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.specialization = specialization;
-        this.location_id = location_id;
+        this.location = location;
         this.price = price;
     }
 
@@ -69,19 +72,19 @@ public class Provider {
         this.specialization = specialization;
     }
 
-    public String getLocation_id() {
-        return location_id;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocation_id(String location_id) {
-        this.location_id = location_id;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }
