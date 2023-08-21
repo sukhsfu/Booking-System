@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class ClientServiceImpl implements  ClientService{
 
@@ -17,5 +19,11 @@ public class ClientServiceImpl implements  ClientService{
     @Transactional
     public Client createNewClient(Client client) {
         return repository.save(client);
+    }
+
+    @Override
+    @Transactional
+    public Optional<Client> getClientByID(int id) {
+        return repository.findById(id);
     }
 }
