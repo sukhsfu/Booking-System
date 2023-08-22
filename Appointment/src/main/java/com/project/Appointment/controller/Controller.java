@@ -34,7 +34,7 @@ public class Controller {
         if (allByClient == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(allByClient,HttpStatus.FOUND);
+        return new ResponseEntity<>(allByClient,HttpStatus.OK);
     }
 
 
@@ -44,7 +44,7 @@ public class Controller {
         if (allByProvider == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(allByProvider,HttpStatus.FOUND);
+        return new ResponseEntity<>(allByProvider,HttpStatus.OK);
     }
 
 

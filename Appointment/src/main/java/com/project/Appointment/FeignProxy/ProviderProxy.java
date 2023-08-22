@@ -12,5 +12,5 @@ import static com.project.Appointment.Constants.*;
 public interface ProviderProxy {
 
     @GetMapping("/provider"+FINDBYID)
-    ResponseEntity<String> getProviderById(@PathVariable int id);
+    String getProviderById(@PathVariable int id);
 }

@@ -11,5 +11,5 @@ import static com.project.Appointment.Constants.FINDBYID;
 public interface ClientProxy {
 
     @GetMapping("/client"+FINDBYID)
-    ResponseEntity<String> getClientById(@PathVariable int id);
+    String getClientById(@PathVariable int id);
 }

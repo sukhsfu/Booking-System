@@ -29,7 +29,7 @@ public class Controller {
     @GetMapping("/findById/{id}")
     public ResponseEntity<Optional> findById(@PathVariable int id){
         Optional<Provider> provider = providerService.getProviderByID(id);
-        HttpStatus httpStatus = HttpStatus.FOUND;
+        HttpStatus httpStatus = HttpStatus.OK;
         if(provider.isEmpty()){
             httpStatus = HttpStatus.NOT_FOUND;
         }
@@ -39,7 +39,7 @@ public class Controller {
     @GetMapping("/containsName")
     public ResponseEntity<List<Provider>> findByName(@RequestParam String name){
         List<Provider> providers = providerService.getProviderByName(name);
-        HttpStatus httpStatus = HttpStatus.FOUND;
+        HttpStatus httpStatus = HttpStatus.OK;
         if (providers.isEmpty()){
             httpStatus = HttpStatus.NOT_FOUND;
         }
@@ -69,7 +69,7 @@ public class Controller {
     @GetMapping("/getAllBySpecialization/{specialization}")
     public ResponseEntity<List<Provider>> getAllBySpecialization(@PathVariable String specialization){
         List<Provider> providers = providerService.getProviderBySpecialization(specialization);
-        HttpStatus httpStatus = HttpStatus.FOUND;
+        HttpStatus httpStatus = HttpStatus.OK;
         if (providers.isEmpty()){
             httpStatus = HttpStatus.NOT_FOUND;
         }
@@ -79,7 +79,7 @@ public class Controller {
     @GetMapping("/getAllBySpecializationAndCity")
     public ResponseEntity<List<Provider>> getAllBySpecializationAndCity(@RequestParam String specialization, @RequestParam String city){
         List<Provider> providers = providerService.getProviderBySpecializationAndCity(specialization,city);
-        HttpStatus httpStatus = HttpStatus.FOUND;
+        HttpStatus httpStatus = HttpStatus.OK;
         if (providers.isEmpty()){
             httpStatus = HttpStatus.NOT_FOUND;
         }

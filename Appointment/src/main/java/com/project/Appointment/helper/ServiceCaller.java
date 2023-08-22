@@ -1,46 +1,52 @@
 package com.project.Appointment.helper;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+import com.project.Appointment.FeignProxy.ClientProxy;
+import com.project.Appointment.FeignProxy.ProviderProxy;
+import jakarta.ws.rs.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-
-import static com.project.Appointment.Constants.*;
-
+@Component
 public class ServiceCaller {
-    public static String getClientDetails(int clientId){
-        HashMap<String,Integer> uriVariablesClient = new HashMap<>();
-        uriVariablesClient.put("id",clientId);
+
+    @Autowired
+    private ProviderProxy providerProxy;
+    @Autowired
+    private ClientProxy clientProxy;
+
+    public String getClientById(int clientId){
         String client = null;
         try {
-            ResponseEntity<String> forEntityClient = new RestTemplate().getForEntity(CLIENT + FINDBYID, String.class, uriVariablesClient);
-            client = forEntityClient.getBody();
+            client = clientProxy.getClientById(clientId);
         }
-        catch (HttpClientErrorException e){
-            System.out.println(e);
+        catch(NotFoundException ex){
+            System.out.println("Not Found");
         }
-        finally{
-                return client;
+        catch (Exception ex){
+            System.out.println("Exception occurred");
+        }
+        finally {
+            return client;
         }
 
     }
 
-    public static String getProviderDetails(int providerId){
-        HashMap<String,Integer>uriVariablesProvider = new HashMap<>();
-        uriVariablesProvider.put("id",providerId);
+    public String getProviderById(int providerId){
         String provider = null;
-        try {
-            ResponseEntity<String> forEntityProvider = new RestTemplate().getForEntity(PROVIDER+FINDBYID,String.class,uriVariablesProvider);
-            provider = forEntityProvider.getBody();
+        try{
+            provider = providerProxy.getProviderById(providerId);
         }
-        catch (HttpClientErrorException e){
-            System.out.println(e);
+        catch(NotFoundException ex){
+            System.out.println("Not Found");
         }
-        finally{
+        catch (Exception ex){
+            System.out.println("Exception occureed");
+        }
+        finally {
             return provider;
         }
     }
+
+
 }

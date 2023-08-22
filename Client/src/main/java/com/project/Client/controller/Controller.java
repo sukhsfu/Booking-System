@@ -24,7 +24,7 @@ public class Controller {
     @GetMapping("/findById/{id}")
     public ResponseEntity<Optional> findById(@PathVariable int id){
         Optional<Client> client = clientService.getClientByID(id);
-        HttpStatus httpStatus = HttpStatus.FOUND;
+        HttpStatus httpStatus = HttpStatus.OK;
         if(client.isEmpty()){
             httpStatus = HttpStatus.NOT_FOUND;
         }
