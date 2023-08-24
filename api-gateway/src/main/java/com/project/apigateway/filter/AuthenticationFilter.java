@@ -14,8 +14,6 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    @Autowired
-    private RouteValidator validator;
     public AuthenticationFilter(){
         super(Config.class);
     }
@@ -27,26 +25,25 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
-            if (validator.isSecured.test(exchange.getRequest())) {
-                if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                    throw new RuntimeException("missing authorization header");
-                }
-                String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-                String[] parts = authHeader.split(" ");
-                if (parts.length != 2 || !"Bearer".equals(parts[0])) {
-                    throw new RuntimeException("Incorrect authorization structure");
-                }
-
-                return webClientBuilder.build()
-                        .get()
-                        .uri("lb://identityService/auth/validate?token=" + parts[1])
-                        .retrieve().bodyToMono(String.class)
-                        .map(String -> exchange).flatMap(chain::filter);
-
+            if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+                throw new RuntimeException("Missing authorization information");
             }
-            else{
-                return chain.filter(exchange);
+
+            String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+
+            String[] parts = authHeader.split(" ");
+
+            if (parts.length != 2 || !"Bearer".equals(parts[0])) {
+                throw new RuntimeException("Incorrect authorization structure");
             }
+
+            return webClientBuilder.build()
+                    .get()
+                    .uri("lb://identityService/auth/validate?token=" + parts[1])
+                    .retrieve().bodyToMono(String.class)
+                    .map(res ->
+                         exchange
+                    ).flatMap(chain::filter);
         };
     }
 
