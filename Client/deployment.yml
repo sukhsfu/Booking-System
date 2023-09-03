@@ -51,5 +51,4 @@ spec:
       targetPort: 8001
   selector:
     app: client-api
-  type: LoadBalancer
 
