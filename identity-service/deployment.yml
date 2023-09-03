@@ -4,14 +4,14 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: "1"
   labels:
-    app: appointment-api
-  name: appointment-api
+    app: identity-service-api
+  name: identity-service-api
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: appointment-api
+      app: identity-service-api
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -20,12 +20,12 @@ spec:
   template:
     metadata:
       labels:
-        app: appointment-api
+        app: identity-service-api
     spec:
       containers:
-      - image: sukhdhaliwal/appointment:0.0.1-SNAPSHOT
+      - image: sukhdhaliwal/identity-service:0.0.1-SNAPSHOT
         imagePullPolicy: IfNotPresent
-        name: appointment
+        name: identity-service
         envFrom:
           - configMapRef:
               name: booking-system
@@ -45,14 +45,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: appointment-api
-  name: appointment-api
+    app: identity-service-api
+  name: identity-service-api
   namespace: default
 spec:
   ports:
     - port: 8080
-      targetPort: 8010
+      targetPort: 8080
   selector:
-    app: appointment-api
-  type: ClusterIP
+    app: identity-service-api
 

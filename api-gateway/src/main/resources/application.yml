@@ -3,7 +3,7 @@ spring:
     gateway:
       routes:
         - id: provider-id
-          uri: lb://PROVIDER
+          uri: ${PROVIDER_URI:http://localhost:8000}
           predicates:
             - Path=/provider/**
           filters:
@@ -11,13 +11,22 @@ spring:
 
 
         - id: client-id
-          uri: lb://CLIENT
+          uri: ${CLIENT_URI:http://localhost:8001}
           predicates:
             - Path=/client/**
           filters:
             - AuthenticationFilter
 
-        - id: identityService-id
-          uri: lb://IDENTITYSERVICE
+        - id: appointment-id
+          uri: ${APPOINTMENT_URI:http://localhost:8010}
+          predicates:
+            - Path=/appointment/**
+          filters:
+            - AuthenticationFilter
+
+
+
+        - id: identity-service-id
+          uri: ${IDENTITY_SERVICE_URI:http://localhost:8080}
           predicates:
             - Path=/auth/**
