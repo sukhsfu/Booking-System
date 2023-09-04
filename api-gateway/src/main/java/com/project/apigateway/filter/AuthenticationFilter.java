@@ -39,7 +39,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
             return webClientBuilder.build()
                     .get()
-                    .uri("lb://identityService/auth/validate?token=" + parts[1])
+                    .uri(uriBuilder -> uriBuilder.path("/auth/validate").queryParam("token",parts[1]).build())
                     .retrieve().bodyToMono(String.class)
                     .map(res ->
                          exchange
