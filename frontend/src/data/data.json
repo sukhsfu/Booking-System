@@ -1,0 +1,221 @@
+{
+  "version": "1",
+  "label": "Status Dashboard for WU",
+  "hint": "This is health check status dashboard for WU",
+  "from": "2023-08-26 00:00:01 GMT",
+  "to": "2023-09-01 23:59:59 GMT",
+  "data": [
+    {
+      "label": "Retail",
+      "hint": "Business Unit",
+      "data": [
+        {
+          "label": "Agent",
+          "hint": "Product",
+          "data": [
+            {
+              "label": "RMO",
+              "hint": "Application",
+              "data": [
+                {
+                  "label": "BE service 1",
+                  "hint": "RMO backend service for money order creation",
+                  "status": {
+                    "2023-08-25": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-26": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-27": {
+                      "value": "FAIL",
+                      "message": "Service outage",
+                      "age": "15 mins ago"
+                    },
+                    "2023-08-28": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-29": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-30": {
+                      "value": "FAIL",
+                      "message": "Service outage",
+                      "age": "15 mins ago"
+                    },
+                    "2023-08-31": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "label": "POS",
+              "hint": "Application",
+              "data": [
+                {
+                  "label": "BE service 2",
+                  "hint": "POS backend service",
+                  "status": {
+                    "2023-08-25": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-26": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-27": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-28": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-29": {
+                      "value": "FAIL",
+                      "message": "Service outage",
+                      "age": "15 mins ago"
+                    },
+                    "2023-08-30": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-31": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Online",
+      "hint": "Business Unit",
+      "data": [
+        {
+          "label": "Digital",
+          "hint": "Product",
+          "data": [
+            {
+              "label": "Website",
+              "hint": "Application",
+              "data": [
+                {
+                  "label": "BE service 1",
+                  "hint": "Website backend service",
+                  "status": {
+                    "2023-08-25": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-26": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-27": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-28": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-29": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-30": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-31": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Mobile App",
+              "hint": "Application",
+              "data": [
+                {
+                  "label": "API service",
+                  "hint": "Mobile app API service",
+                  "status": {
+                    "2023-08-25": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-26": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-27": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-28": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    },
+                    "2023-08-29": {
+                      "value": "FAIL",
+                      "message": "Service outage",
+                      "age": "15 mins ago"
+                    },
+                    "2023-08-30": {
+                      "value": "PASS",
+                      "message": "Everything is good",
+                      "age": "10 mins ago"
+                    },
+                    "2023-08-31": {
+                      "value": "PASS",
+                      "message": "All systems operational",
+                      "age": "5 mins ago"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
