@@ -14,6 +14,9 @@ const StyledNav = styled.nav`
   justify-content: start;
   align-items: center;
   width: 100%;
+  border-bottom-style: solid;
+  border-width: 3px;
+  border-color: #1e3050;
 `;
 
 const SytledText = styled.h1`

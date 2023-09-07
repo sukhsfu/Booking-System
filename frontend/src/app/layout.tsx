@@ -1,7 +1,7 @@
 import Navbar from "@/components/navbar/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
-import ClientOnly from "@/components/commons/ClientOnly";
+import Container from "@/components/commons/Container";
 
 export const metadata: Metadata = {
   title: "Appointment Booking System",
@@ -16,10 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClientOnly>
+        <Container>
           <Navbar />
           {children}
-        </ClientOnly>
+        </Container>
       </body>
     </html>
   );

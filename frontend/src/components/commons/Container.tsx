@@ -1,14 +1,20 @@
 "use client";
+import styled from "styled-components";
+
 type Props = {
   children: React.ReactNode;
 };
 
+const ViewPort = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+`;
+
 const Container: React.FC<Props> = ({ children }) => {
-  return (
-    <div className="max-w-[1200px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4 py-4 bg-slate-500 rounded-md">
-      {children}
-    </div>
-  );
+  return <ViewPort>{children}</ViewPort>;
 };
 
 export default Container;
