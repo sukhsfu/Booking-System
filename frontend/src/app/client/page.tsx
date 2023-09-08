@@ -2,13 +2,13 @@
 import Button from "@/components/commons/Button";
 import ButtonsWrapper from "@/components/commons/ButtonsWrapper";
 
-const HomePage = () => {
+const Client = () => {
   return (
     <ButtonsWrapper>
-      <Button link="/service"> Service Provider</Button>
-      <Button link="/client"> Client</Button>
+      <Button link="/"> View Appointments</Button>
+      <Button link="/"> Create New Appointments</Button>
     </ButtonsWrapper>
   );
 };
 
-export default HomePage;
+export default Client;

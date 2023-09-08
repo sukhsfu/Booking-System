@@ -2,6 +2,7 @@
 
 import { ReactNode } from "react";
 import { styled } from "styled-components";
+import { useRouter } from "next/navigation";
 
 const WrapperButton = styled.button`
   display: flex;
@@ -27,16 +28,21 @@ const SytledText = styled.p`
 
 interface MyComponentProps {
   children: ReactNode;
+  link: string;
 }
 
-const ServiceButton = ({ children }: MyComponentProps) => {
+const Button = ({ children, link }: MyComponentProps) => {
+  const router = useRouter();
+  const onClickHander = () => {
+    router.push(link);
+  };
   return (
     <>
-      <WrapperButton>
+      <WrapperButton type="button" onClick={onClickHander}>
         <SytledText>{children}</SytledText>
       </WrapperButton>
     </>
   );
 };
 
-export default ServiceButton;
+export default Button;
