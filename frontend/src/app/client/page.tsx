@@ -6,7 +6,9 @@ const Client = () => {
   return (
     <ButtonsWrapper>
       <Button link="/"> View Appointments</Button>
-      <Button link="/"> Create New Appointments</Button>
+      <Button link="/new-appointment/?searchId=name">
+        Create New Appointments
+      </Button>
     </ButtonsWrapper>
   );
 };
