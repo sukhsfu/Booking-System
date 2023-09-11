@@ -1,9 +1,12 @@
 "use client";
 import styled from "styled-components";
-import { onSearchChange, onSearchClear } from "@/redux/search/search-slice";
+import {
+  onSearchChange,
+  onSearchClear,
+  selectSearchInput,
+} from "@/redux/search/search-slice";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { selectSearchInput } from "@/redux/search/search-slice";
 import { selectPlaceHolder } from "@/redux/search/placeHolder-slice";
 import { useDispatch, useSelector } from "react-redux";
 

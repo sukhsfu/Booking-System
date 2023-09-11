@@ -5,6 +5,11 @@ import { getDatafromJson } from "@/actions/getDatafromJson";
 import { faSquare, faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 import TableRow from "./TableRow";
 import styled from "styled-components";
+import {
+  itemSelected,
+  onItemSelected,
+} from "@/redux/search/newappointment-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   overflow-x: auto;
@@ -47,7 +52,8 @@ type DataProps = {
 const Table = (props: Props) => {
   const [data, setData] = useState<any>([]);
   const [selectedKey, setSelectedKey] = useState<number | string>(0);
-  const [itemSelected, setItemSelected] = useState(false);
+  const anyItemSelected = useSelector(itemSelected);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const json = getDatafromJson();
@@ -56,14 +62,14 @@ const Table = (props: Props) => {
 
   const onRowSelected = useCallback((key: number | string) => {
     setSelectedKey(key);
-    setItemSelected(true);
+    dispatch(onItemSelected(true));
   }, []);
 
   return (
     <Container>
       <StyledTable>
         <StyledThead>
-          <TableHeader icon={itemSelected ? faSquareCheck : faSquare} />
+          <TableHeader icon={anyItemSelected ? faSquareCheck : faSquare} />
         </StyledThead>
         <StyledTbody>
           {data?.map((rowValue: DataProps) => {

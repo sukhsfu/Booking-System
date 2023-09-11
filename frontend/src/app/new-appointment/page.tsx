@@ -8,6 +8,8 @@ import { styled } from "styled-components";
 import OptionsBar from "@/components/commons/OptionsBar";
 import Table from "@/components/commons/Table";
 import ActionButton from "@/components/commons/ActionButton";
+import { itemSelected } from "@/redux/search/newappointment-slice";
+import { useSelector } from "react-redux";
 
 const Parent = styled.div`
   display: flex;
@@ -26,6 +28,7 @@ const HeadBar = styled.div`
 `;
 
 const NewAppointment = () => {
+  const anyItemSelected = useSelector(itemSelected);
   const icon = (
     <FontAwesomeIcon
       icon={faMagnifyingGlass}
@@ -41,6 +44,7 @@ const NewAppointment = () => {
           label="Create new Appointment"
           link="/"
           icon={<FontAwesomeIcon icon={faPlus} />}
+          disabled={!anyItemSelected}
         ></ActionButton>
       </HeadBar>
       <OptionsBar></OptionsBar>
