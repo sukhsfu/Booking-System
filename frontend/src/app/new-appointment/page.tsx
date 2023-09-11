@@ -2,12 +2,12 @@
 
 import SearchBar from "@/components/commons/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { styled } from "styled-components";
 import OptionsBar from "@/components/commons/OptionsBar";
 import Table from "@/components/commons/Table";
-import Button from "@/components/commons/Button";
+import ActionButton from "@/components/commons/ActionButton";
 
 const Parent = styled.div`
   display: flex;
@@ -37,6 +37,11 @@ const NewAppointment = () => {
     <Parent>
       <HeadBar>
         <SearchBar icon={icon}></SearchBar>
+        <ActionButton
+          label="Create new Appointment"
+          link="/"
+          icon={<FontAwesomeIcon icon={faPlus} />}
+        ></ActionButton>
       </HeadBar>
       <OptionsBar></OptionsBar>
       <Table />

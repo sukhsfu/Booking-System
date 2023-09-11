@@ -33,12 +33,12 @@ interface MyComponentProps {
 
 const Button = ({ children, link }: MyComponentProps) => {
   const router = useRouter();
-  const onClickHander = () => {
+  const onClickHandler = () => {
     router.push(link);
   };
   return (
     <>
-      <WrapperButton type="button" onClick={onClickHander}>
+      <WrapperButton type="button" onClick={onClickHandler}>
         <SytledText>{children}</SytledText>
       </WrapperButton>
     </>
