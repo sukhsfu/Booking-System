@@ -36,8 +36,8 @@ const ActionButton = ({
 }: {
   label: string;
   link: string;
-  icon: JSX.Element;
-  disabled: boolean;
+  icon?: JSX.Element;
+  disabled?: boolean;
 }) => {
   const router = useRouter();
   const onClickHandler = () => {
