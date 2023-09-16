@@ -2,9 +2,10 @@
 
 import styled from "styled-components";
 import HiddenLable from "@/components/commons/HiddenLabel";
+import { useRouter, useSearchParams } from "next/navigation";
 import "./styles.css";
 
-const Parent = styled.div`
+const FormContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,7 +37,9 @@ const StyledText = styled.p`
   line-height: normal;
 `;
 
-const StyledBox = styled.div<{ background: string; color: string }>`
+const StyledBox = styled.button<{ background: string; color: string }>`
+  outline: none;
+  border: 0px solid blue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,10 +55,22 @@ const StyledInput = styled.input`
 `;
 
 const Login = () => {
+  const router = useRouter();
+  const params = useSearchParams();
+  const type: any = params?.get("type");
+  const onLogIn = (event: any) => {
+    event.preventDefault();
+    router.push(type);
+  };
+
+  const onSignUp = (event: any) => {
+    event.preventDefault();
+    router.push("new-" + type);
+  };
   return (
-    <Parent>
+    <FormContainer>
       <Wrapper>
-        <form>
+        <form onSubmit={onLogIn}>
           <StyledText> Log In</StyledText>
           <Wrapper margin="22px 0px">
             <div>
@@ -82,6 +97,7 @@ const Login = () => {
               className="box-size"
               background="#1E3050"
               color="#F5F4F2"
+              type="submit"
             >
               {" "}
               LOG IN
@@ -90,6 +106,7 @@ const Login = () => {
               className="box-size"
               background="#C8C4B7B8"
               color="#241C1C"
+              onClick={onSignUp}
             >
               {" "}
               Sign Up
@@ -97,7 +114,7 @@ const Login = () => {
           </Wrapper>
         </form>
       </Wrapper>
-    </Parent>
+    </FormContainer>
   );
 };
 

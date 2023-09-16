@@ -17,8 +17,8 @@ const HomePage = () => {
   return (
     <ButtonsWrapper>
       <StyledText> Do you want to login as?</StyledText>
-      <Button link="/service"> Service Provider</Button>
-      <Button link="/client"> Client</Button>
+      <Button link="/login/?type=provider"> Service Provider</Button>
+      <Button link="/login/?type=client"> Client</Button>
     </ButtonsWrapper>
   );
 };

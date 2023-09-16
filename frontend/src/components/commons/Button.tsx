@@ -15,7 +15,8 @@ const WrapperButton = styled.button`
   flex-shrink: 0;
   border-radius: 50px;
   background: #1e3050;
-  border-style: solid;
+  outline: none;
+  border: 0px solid blue;
 `;
 
 const SytledText = styled.p`
