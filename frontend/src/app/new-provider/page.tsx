@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
-import ProviderCredential from "./ProviderCredential";
+import ProviderCredential from "../../components/commons/UserCredential";
 import ProviderInformation from "./ProviderInformation";
 import { useRouter } from "next/navigation";
 import ProviderLocation from "./ProviderLocation";

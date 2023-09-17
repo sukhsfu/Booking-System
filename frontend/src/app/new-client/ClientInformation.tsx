@@ -13,17 +13,17 @@ type Props = {
   formNumber: string;
 };
 
-const ProviderCredential: React.FC<Props> = ({ onSubmit, formNumber }) => {
+const ClientInformation: React.FC<Props> = ({ onSubmit, formNumber }) => {
   const [formData, setFormData] = useState({
-    userName: "",
-    password: "",
-    confirmPassword: "",
+    displayName: "",
+    email: "",
+    phone: "",
   });
 
   const [formErrors, setFormErrors] = useState({
-    userName: "",
-    password: "",
-    confirmPassword: "",
+    displayName: "",
+    email: "",
+    phone: "",
   });
 
   const handleInputChange = (e: any) => {
@@ -46,24 +46,18 @@ const ProviderCredential: React.FC<Props> = ({ onSubmit, formNumber }) => {
     e.preventDefault();
     const errors: any = {};
 
-    if (!formData.userName.trim()) {
-      errors.userName = "UserName is required";
+    if (!formData.displayName.trim()) {
+      errors.name = "Display Name is required";
     }
 
-    if (formData.userName === "xxx") {
-      errors.userName = "UserName already taken";
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.match(emailPattern)) {
+      errors.email = "Invalid email address";
     }
 
-    if (!formData.password.trim()) {
-      errors.password = "password is required";
-    }
-
-    if (formData.password.length < 8) {
-      errors.password = "password should be at least 8 characters";
-    }
-
-    if (formData.confirmPassword !== formData.password) {
-      errors.confirmPassword = "passwords does not match";
+    const phoneNumberPattern = /^\d{10}$/;
+    if (!formData.phone.match(phoneNumberPattern)) {
+      errors.phone = "Invalid phone number";
     }
 
     if (Object.keys(errors).length > 0) {
@@ -76,45 +70,43 @@ const ProviderCredential: React.FC<Props> = ({ onSubmit, formNumber }) => {
   return (
     <SignUpForm
       handleSubmit={handleSubmit}
-      buttonText="Next"
+      buttonText="Create Account"
       formNumber={formNumber}
     >
-      <Label>UserName</Label>
+      <Label>Display Name</Label>
       <InputWrapper>
         <Input
           type="text"
-          name="userName"
-          value={formData.userName}
+          name="displayName"
+          value={formData.displayName}
           onChange={handleInputChange}
         />
-        {formErrors.userName && <Error>{formErrors.userName}</Error>}
+        {formErrors.displayName && <Error>{formErrors.displayName}</Error>}
       </InputWrapper>
 
-      <Label>Password</Label>
+      <Label>Email</Label>
       <InputWrapper>
         <Input
-          type="password"
-          name="password"
-          value={formData.password}
+          type="email"
+          name="email"
+          value={formData.email}
           onChange={handleInputChange}
         />
-        {formErrors.password && <Error>{formErrors.password}</Error>}
+        {formErrors.email && <Error>{formErrors.email}</Error>}
       </InputWrapper>
 
-      <Label>Confirm Password</Label>
+      <Label>Phone Number</Label>
       <InputWrapper>
         <Input
-          type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
+          type="tel"
+          name="phone"
+          value={formData.phone}
           onChange={handleInputChange}
         />
-        {formErrors.confirmPassword && (
-          <Error>{formErrors.confirmPassword}</Error>
-        )}
+        {formErrors.phone && <Error>{formErrors.phone}</Error>}
       </InputWrapper>
     </SignUpForm>
   );
 };
 
-export default ProviderCredential;
+export default ClientInformation;
