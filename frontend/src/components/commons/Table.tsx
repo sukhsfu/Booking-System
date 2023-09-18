@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import TableHeader from "./TableHeader";
 import { faSquare, faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 import TableRow from "./TableRow";
@@ -48,14 +48,16 @@ const Table = ({ data, headers, selectAvailble = false }: Props) => {
   const anyItemSelected = useSelector(itemSelected);
   const dispatch = useDispatch();
 
-  const onRowSelected = useCallback((key: number | string) => {
-    setSelectedKey(key);
-    dispatch(onItemSelected(true));
-
+  useEffect(() => {
     return () => {
       setSelectedKey(0);
       dispatch(onItemSelected(false));
     };
+  }, []);
+
+  const onRowSelected = useCallback((key: number | string) => {
+    setSelectedKey(key);
+    dispatch(onItemSelected(true));
   }, []);
 
   return (
