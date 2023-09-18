@@ -24,7 +24,7 @@ const TableHeader: React.FC<Props> = ({ icon, headers }) => {
     <HeaderRow>
       {icon && <th>{<FontAwesomeIcon icon={icon} />}</th>}
       {headers?.map((header: string, index) => {
-        header = header.replace("id", "providerId");
+        header = header.replace(/\bid\b/g, "providerId");
         header = header.replace(/([A-Z])/g, " $1");
         header = header.replace(/^\w/, (match) => match.toUpperCase());
         return <th key={index}>{header}</th>;

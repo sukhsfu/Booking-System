@@ -3,7 +3,7 @@
     "id": 1,
     "appointmentDate": "2023-12-11",
     "time": "12:00 PM",
-    "clientName": "sukhwinder",
+    "providerName": "sukhwinder",
     "email": "sukh.dhaliwal.9678@gmail.com",
     "phone": "7786971684"
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "appointmentDate": "2023-12-11",
     "time": "12:00 PM",
-    "clientName": "sukhwinder",
+    "providerName": "sukhwinder",
     "email": "sukh.dhaliwal.9678@gmail.com",
     "phone": "7786971684"
   },
@@ -19,7 +19,7 @@
     "id": 3,
     "appointmentDate": "2023-12-11",
     "time": "12:00 PM",
-    "clientName": "sukhwinder",
+    "providerName": "sukhwinder",
     "email": "sukh.dhaliwal.9678@gmail.com",
     "phone": "7786971684"
   }
