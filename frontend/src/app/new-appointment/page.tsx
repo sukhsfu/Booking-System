@@ -1,5 +1,7 @@
 "use client";
 
+import React, { useCallback, useEffect, useState } from "react";
+import { getDatafromJson } from "@/actions/getDatafromJson";
 import SearchBar from "@/components/commons/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -29,12 +31,20 @@ const HeadBar = styled.div`
 
 const NewAppointment = () => {
   const anyItemSelected = useSelector(itemSelected);
+  const [data, setData] = useState<any>([]);
+  const [headers, setHeaders] = useState<any>([]);
   const icon = (
     <FontAwesomeIcon
       icon={faMagnifyingGlass}
       className="bg-slate-100 text-[#d1d1d1]"
     />
   );
+
+  useEffect(() => {
+    const json = getDatafromJson();
+    json && setHeaders(Object.keys(json[0]));
+    setData(json);
+  }, []);
 
   return (
     <Parent>
@@ -48,7 +58,7 @@ const NewAppointment = () => {
         ></ActionButton>
       </HeadBar>
       <OptionsBar></OptionsBar>
-      <Table />
+      <Table data={data} headers={headers} selectAvailble />
     </Parent>
   );
 };

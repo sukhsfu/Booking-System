@@ -2,11 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  IconLookup,
-  IconName,
-  IconPrefix,
-} from "@fortawesome/fontawesome-common-types";
+import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 
 const TR = styled.tr`
   width: 100%;
@@ -32,44 +28,28 @@ const TableCell = styled.td`
   text-overflow: inherit;
 `;
 
-type IconProp = IconName | [IconPrefix, IconName] | IconLookup;
-
 type TableRowProps = {
-  providerId: string | number;
-  name: string;
-  email: string;
-  phone: string;
-  service: string;
-  price: string;
-  address: string;
-  onRowSelected: (key: number | string) => void;
-  icon: IconProp;
+  data: any;
+  headers: [string];
+  onRowSelected: ((key: number | string) => void) | null;
+  icon: IconDefinition | null;
 };
 
 const TableRow: React.FC<TableRowProps> = ({
-  providerId,
-  name,
-  email,
-  phone,
-  service,
-  price,
-  address,
+  data,
   icon,
   onRowSelected,
+  headers,
 }) => {
   const onClickHandler = () => {
-    onRowSelected(providerId);
+    onRowSelected && onRowSelected(data.id);
   };
   return (
     <TR onClick={onClickHandler}>
-      <TableCell>{<FontAwesomeIcon icon={icon} />}</TableCell>
-      <TableCell>{providerId}</TableCell>
-      <TableCell>{name}</TableCell>
-      <TableCell>{email}</TableCell>
-      <TableCell>{phone}</TableCell>
-      <TableCell>{service}</TableCell>
-      <TableCell>{price}</TableCell>
-      <TableCell>{address}</TableCell>
+      {icon && <TableCell>{<FontAwesomeIcon icon={icon} />}</TableCell>}
+      {headers?.map((header: string, index: any) => {
+        return <TableCell key={index}>{data[header]}</TableCell>;
+      })}
     </TR>
   );
 };
