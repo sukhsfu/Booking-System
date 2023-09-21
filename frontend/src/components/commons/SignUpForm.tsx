@@ -80,7 +80,7 @@ interface SignUpFormProps {
   children: ReactNode;
   handleSubmit: FormEventHandler;
   buttonText: string;
-  formNumber: string;
+  formNumber?: string;
   noTitle?: boolean;
 }
 

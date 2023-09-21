@@ -8,11 +8,8 @@ import SignUpForm, {
 } from "@/components/commons/SignUpForm";
 import React, { useState } from "react";
 import styled from "styled-components";
-
-type Props = {
-  onSubmit: () => void;
-  formNumber: string;
-};
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
 
 const FieldSet = styled.fieldset`
   margin-bottom: 30px;
@@ -26,17 +23,18 @@ const Legend = styled.legend`
 const StyledP = styled.p`
   color: gray;
 `;
-const createAppointment: React.FC<Props> = ({ onSubmit, formNumber }) => {
+
+const StyledDiv = styled.div`
+  width: 400px;
+`;
+const createAppointment: React.FC = () => {
+  const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    displayName: "",
-    email: "",
-    phone: "",
+    appointmentDate: "",
   });
 
   const [formErrors, setFormErrors] = useState({
-    displayName: "",
-    email: "",
-    phone: "",
+    appointmentDate: "",
   });
 
   const handleInputChange = (e: any) => {
@@ -59,32 +57,23 @@ const createAppointment: React.FC<Props> = ({ onSubmit, formNumber }) => {
     e.preventDefault();
     const errors: any = {};
 
-    if (!formData.displayName.trim()) {
-      errors.name = "Display Name is required";
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.match(emailPattern)) {
-      errors.email = "Invalid email address";
-    }
-
-    const phoneNumberPattern = /^\d{10}$/;
-    if (!formData.phone.match(phoneNumberPattern)) {
-      errors.phone = "Invalid phone number";
+    const dateTimePattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
+    if (!formData.appointmentDate.match(dateTimePattern)) {
+      console.log(formData.appointmentDate);
+      errors.appointmentDate = "Please provide a complete date and time";
     }
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
-      onSubmit();
+      setSuccess(true);
     }
   };
 
   return (
     <SignUpForm
       handleSubmit={handleSubmit}
-      buttonText="Create Appointment"
-      formNumber={formNumber}
+      buttonText={success ? "Back to Booked Appointment" : "Create Appointment"}
       noTitle
     >
       <FieldSet>
@@ -105,16 +94,38 @@ const createAppointment: React.FC<Props> = ({ onSubmit, formNumber }) => {
         </div>
       </FieldSet>
 
-      <Label>Phone Number</Label>
-      <InputWrapper>
-        <Input
-          type="datetime-local"
-          name="phone"
-          value={formData.phone}
-          onChange={handleInputChange}
-        />
-        {formErrors.phone && <Error>{formErrors.phone}</Error>}
-      </InputWrapper>
+      {!success && (
+        <>
+          <Label>Appointment Date</Label>
+          <InputWrapper>
+            <Input
+              type="datetime-local"
+              name="appointmentDate"
+              value={formData.appointmentDate}
+              onChange={handleInputChange}
+            />
+            {formErrors.appointmentDate && (
+              <Error>{formErrors.appointmentDate}</Error>
+            )}
+          </InputWrapper>
+        </>
+      )}
+      {success && (
+        <StyledDiv>
+          <FieldSet>
+            <Legend>
+              <FontAwesomeIcon
+                icon={faCalendarCheck}
+                style={{ color: "Green" }}
+              />{" "}
+              Appointment Booked
+            </Legend>
+            <div>
+              <StyledP>2023-09-27, 12:00 Am</StyledP>
+            </div>
+          </FieldSet>
+        </StyledDiv>
+      )}
     </SignUpForm>
   );
 };
