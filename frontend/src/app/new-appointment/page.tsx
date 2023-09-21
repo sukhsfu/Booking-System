@@ -52,7 +52,7 @@ const NewAppointment = () => {
         <SearchBar icon={icon}></SearchBar>
         <ActionButton
           label="Create new Appointment"
-          link="/"
+          link="/create"
           icon={<FontAwesomeIcon icon={faPlus} />}
           disabled={!anyItemSelected}
         ></ActionButton>

@@ -81,6 +81,7 @@ interface SignUpFormProps {
   handleSubmit: FormEventHandler;
   buttonText: string;
   formNumber: string;
+  noTitle?: boolean;
 }
 
 const SignUpForm = ({
@@ -88,11 +89,12 @@ const SignUpForm = ({
   handleSubmit,
   buttonText,
   formNumber,
+  noTitle,
 }: SignUpFormProps) => {
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <Title>Sign Up</Title>
+        {!noTitle && <Title>Sign Up</Title>}
         {children}
         <BottomBar>
           <Button type="submit">{buttonText}</Button>

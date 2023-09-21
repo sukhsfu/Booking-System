@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface ActionButtonProps {
   disabled?: boolean;
@@ -40,8 +40,9 @@ const ActionButton = ({
   disabled?: boolean;
 }) => {
   const router = useRouter();
+  const pathName = usePathname();
   const onClickHandler = () => {
-    router.push(link);
+    router.push(pathName + link);
   };
 
   return (

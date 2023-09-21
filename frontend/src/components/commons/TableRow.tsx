@@ -3,6 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-common-types";
+import { useDispatch } from "react-redux";
+import { onProviderIdSelected } from "@/redux/search/appointmentdata-slice";
 
 const TR = styled.tr`
   width: 100%;
@@ -41,8 +43,10 @@ const TableRow: React.FC<TableRowProps> = ({
   onRowSelected,
   headers,
 }) => {
+  const dispatch = useDispatch();
   const onClickHandler = () => {
     onRowSelected && onRowSelected(data.id);
+    onRowSelected && dispatch(onProviderIdSelected(data.id));
   };
   return (
     <TR onClick={onClickHandler}>
