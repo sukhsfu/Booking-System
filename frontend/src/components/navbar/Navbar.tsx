@@ -1,36 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
-import styled from "styled-components";
-
-const StyledNav = styled.nav`
-  display: flex;
-  background: #eaf8fa;
-  gap: 23%;
-  padding-left: 10%;
-  padding-bottom: 30px;
-  padding-top: 20px;
-  height: 122px;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
-  border-bottom-style: solid;
-  border-width: 3px;
-  border-color: #1e3050;
-`;
-
-const SytledText = styled.h1`
-  color: #1e3050;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: Inter;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
+import styles from "./styles.module.css";
 
 const Navbar = () => {
   return (
-    <StyledNav>
+    <nav className={styles.navbar}>
       <div>
         <FontAwesomeIcon
           icon={faCalendarCheck}
@@ -38,8 +12,8 @@ const Navbar = () => {
           size="5x"
         />
       </div>
-      <SytledText>Appointment Booking System</SytledText>
-    </StyledNav>
+      <h1>Appointment Booking System</h1>
+    </nav>
   );
 };
 
