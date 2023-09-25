@@ -2,6 +2,7 @@ package com.project.Provider.controller;
 
 
 import com.project.Provider.model.Provider;
+import com.project.Provider.model.ProviderResponse;
 import com.project.Provider.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class Controller {
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<Optional> findById(@PathVariable int id){
-        Optional<Provider> provider = providerService.getProviderByID(id);
+        Optional<ProviderResponse> provider = providerService.getProviderByID(id);
         HttpStatus httpStatus = HttpStatus.OK;
         if(provider.isEmpty()){
             httpStatus = HttpStatus.NOT_FOUND;
@@ -37,8 +38,8 @@ public class Controller {
     }
 
     @GetMapping("/containsName")
-    public ResponseEntity<List<Provider>> findByName(@RequestParam String name){
-        List<Provider> providers = providerService.getProviderByName(name);
+    public ResponseEntity<List<ProviderResponse>> findByName(@RequestParam String name){
+        List<ProviderResponse> providers = providerService.getProviderByName(name);
         HttpStatus httpStatus = HttpStatus.OK;
         if (providers.isEmpty()){
             httpStatus = HttpStatus.NOT_FOUND;
@@ -60,15 +61,15 @@ public class Controller {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Provider>> getAllProviders(){
-        List<Provider> providers = providerService.getAllProviders();
+    public ResponseEntity<List<ProviderResponse>> getAllProviders(){
+        List<ProviderResponse> providers = providerService.getAllProviders();
         HttpStatus httpStatus = providers.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
         return new ResponseEntity<>(providers,httpStatus);
     }
 
-    @GetMapping("/getAllBySpecialization/{specialization}")
-    public ResponseEntity<List<Provider>> getAllBySpecialization(@PathVariable String specialization){
-        List<Provider> providers = providerService.getProviderBySpecialization(specialization);
+    @GetMapping("/getAllByService/{service}")
+    public ResponseEntity<List<ProviderResponse>> getAllByService(@PathVariable String service){
+        List<ProviderResponse> providers = providerService.getProviderByService(service);
         HttpStatus httpStatus = HttpStatus.OK;
         if (providers.isEmpty()){
             httpStatus = HttpStatus.NOT_FOUND;
@@ -76,9 +77,9 @@ public class Controller {
         return new ResponseEntity<>(providers,httpStatus);
     }
 
-    @GetMapping("/getAllBySpecializationAndCity")
-    public ResponseEntity<List<Provider>> getAllBySpecializationAndCity(@RequestParam String specialization, @RequestParam String city){
-        List<Provider> providers = providerService.getProviderBySpecializationAndCity(specialization,city);
+    @GetMapping("/getAllByServiceAndCity")
+    public ResponseEntity<List<ProviderResponse>> getAllByServiceAndCity(@RequestParam String service, @RequestParam String city){
+        List<ProviderResponse> providers = providerService.getProviderByServiceAndCity(service,city);
         HttpStatus httpStatus = HttpStatus.OK;
         if (providers.isEmpty()){
             httpStatus = HttpStatus.NOT_FOUND;

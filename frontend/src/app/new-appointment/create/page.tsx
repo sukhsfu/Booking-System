@@ -27,7 +27,7 @@ const StyledP = styled.p`
 const StyledDiv = styled.div`
   width: 400px;
 `;
-const createAppointment: React.FC = () => {
+const CreateAppointment: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     appointmentDate: "",
@@ -130,4 +130,4 @@ const createAppointment: React.FC = () => {
   );
 };
 
-export default createAppointment;
+export default CreateAppointment;

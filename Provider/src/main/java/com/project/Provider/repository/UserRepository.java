@@ -20,9 +20,9 @@ public interface UserRepository extends JpaRepository<Provider,Integer> {
 
     void deleteById(Integer id);
 
-    List<Provider> findBySpecializationContaining(String specialization);
+    List<Provider> findByServiceContaining(String service);
 
 
-    @Query("SELECT p FROM Provider p JOIN p.location l WHERE p.specialization = :specialization AND l.city = :city")
-    List<Provider> findBySpecializationAndCity(String specialization, String city);
+    @Query("SELECT p FROM Provider p JOIN p.location l WHERE p.service = :service AND l.city = :city")
+    List<Provider> findByServiceAndCity(String service, String city);
 }

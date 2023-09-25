@@ -2,6 +2,7 @@ package com.project.Provider.service;
 
 
 import com.project.Provider.model.Provider;
+import com.project.Provider.model.ProviderResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,14 +12,14 @@ public interface ProviderService {
 
     Provider addProvider(Provider provider);
 
-    Optional<Provider> getProviderByID(int id);
-    List<Provider> getProviderByName(String name);
+    Optional<ProviderResponse> getProviderByID(int id);
+    List<ProviderResponse> getProviderByName(String name);
 
     void deleteById(int id);
 
-    List<Provider> getAllProviders();
+    List<ProviderResponse> getAllProviders();
 
-    List<Provider> getProviderBySpecialization(String specialization);
+    List<ProviderResponse> getProviderByService(String service);
 
-    List<Provider> getProviderBySpecializationAndCity(String specialization, String city);
+    List<ProviderResponse> getProviderByServiceAndCity(String service, String city);
 }

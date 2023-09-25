@@ -7,7 +7,7 @@ import {
 } from "@/redux/search/search-slice";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { selectPlaceHolder } from "@/redux/search/placeHolder-slice";
+import { placeHolderText } from "@/redux/search/placeHolder-slice";
 import { useDispatch, useSelector } from "react-redux";
 
 const SearchBarContainer = styled.div`
@@ -57,7 +57,7 @@ const ClearSearchButton = styled.div`
 export default function SearchBar({ icon }: { icon: JSX.Element }) {
   const dispatch = useDispatch();
   const searchInput = useSelector(selectSearchInput);
-  const placeHolder = useSelector(selectPlaceHolder);
+  const placeHolder = useSelector(placeHolderText);
 
   const handleSearchInput = (event: any) => {
     event.preventDefault();

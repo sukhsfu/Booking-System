@@ -1,14 +1,6 @@
 package com.project.Provider.model;
 
-
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "provider")
-public class Provider {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ProviderResponse {
     private int id;
     private String name;
     private String email;
@@ -16,20 +8,19 @@ public class Provider {
     private String service;
     private double price;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id")
-    private Location location;
+    private String address;
 
-    public Provider() {
+    public ProviderResponse() {
     }
 
-    public Provider(String name, String email, String phone, String service, Location location, double price) {
+    public ProviderResponse(int id, String name, String email, String phone, String service, double price, String address) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.service = service;
-        this.location = location;
         this.price = price;
+        this.address = address;
     }
 
     public int getId() {
@@ -72,19 +63,19 @@ public class Provider {
         this.service = service;
     }
 
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
