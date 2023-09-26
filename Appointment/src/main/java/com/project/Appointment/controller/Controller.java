@@ -1,9 +1,9 @@
 package com.project.Appointment.controller;
 
 import com.project.Appointment.model.Appointment;
-import com.project.Appointment.model.AppointmentDetails;
+import com.project.Appointment.model.AppointmentResponseClient;
+import com.project.Appointment.model.AppointmentResponseProvider;
 import com.project.Appointment.service.AppointmentService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +19,8 @@ public class Controller {
     private AppointmentService appointmentService;
 
     @PostMapping("/create")
-    public ResponseEntity<AppointmentDetails> create(@RequestBody Appointment appointment){
-        AppointmentDetails newAppointment = appointmentService.createNewAppointment(appointment);
+    public ResponseEntity<AppointmentResponseClient> create(@RequestBody Appointment appointment){
+        AppointmentResponseClient newAppointment = appointmentService.createNewAppointment(appointment);
         if (newAppointment == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -29,8 +29,8 @@ public class Controller {
 
 
     @GetMapping("/getAllByClient/{clientId}")
-    public ResponseEntity<List<AppointmentDetails>> getAllByClient(@PathVariable int clientId){
-        List<AppointmentDetails> allByClient = appointmentService.getAllByClient(clientId);
+    public ResponseEntity<List<AppointmentResponseClient>> getAllByClient(@PathVariable int clientId){
+        List<AppointmentResponseClient> allByClient = appointmentService.getAllByClient(clientId);
         if (allByClient == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -39,8 +39,8 @@ public class Controller {
 
 
     @GetMapping("/getAllByProvider/{providerId}")
-    public  ResponseEntity<List<AppointmentDetails>>  getAllByProvider(@PathVariable int providerId){
-        List<AppointmentDetails> allByProvider =  appointmentService.getAllByProvider(providerId);
+    public  ResponseEntity<List<AppointmentResponseProvider>>  getAllByProvider(@PathVariable int providerId){
+        List<AppointmentResponseProvider> allByProvider =  appointmentService.getAllByProvider(providerId);
         if (allByProvider == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

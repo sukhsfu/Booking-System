@@ -16,7 +16,7 @@ const HeaderRow = styled.tr`
 
 type Props = {
   icon: IconDefinition | null;
-  headers: [string];
+  headers: [string] | null;
 };
 
 const TableHeader: React.FC<Props> = ({ icon, headers }) => {

@@ -32,7 +32,7 @@ const TableCell = styled.td`
 
 type TableRowProps = {
   data: any;
-  headers: [string];
+  headers: [string] | null;
   onRowSelected: ((key: number | string) => void) | null;
   icon: IconDefinition | null;
 };

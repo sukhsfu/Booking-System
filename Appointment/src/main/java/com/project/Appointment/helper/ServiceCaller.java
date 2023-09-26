@@ -2,6 +2,8 @@ package com.project.Appointment.helper;
 
 import com.project.Appointment.FeignProxy.ClientProxy;
 import com.project.Appointment.FeignProxy.ProviderProxy;
+import com.project.Appointment.model.Client;
+import com.project.Appointment.model.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +15,8 @@ public class ServiceCaller {
     @Autowired
     private ClientProxy clientProxy;
 
-    public String getClientById(int clientId){
-        String client = null;
+    public Client getClientById(int clientId){
+        Client client = null;
         try {
             client = clientProxy.getClientById(clientId);
         }
@@ -27,8 +29,8 @@ public class ServiceCaller {
 
     }
 
-    public String getProviderById(int providerId){
-        String provider = null;
+    public Provider getProviderById(int providerId){
+        Provider provider = null;
         try{
             provider = providerProxy.getProviderById(providerId);
         }

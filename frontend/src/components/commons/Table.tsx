@@ -39,7 +39,7 @@ const StyledTbody = styled.tbody`
 
 type Props = {
   data: [any];
-  headers: [string];
+  headers: [string] | null;
   selectAvailble?: boolean;
 };
 

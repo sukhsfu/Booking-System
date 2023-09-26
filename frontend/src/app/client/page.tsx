@@ -5,7 +5,7 @@ import ButtonsWrapper from "@/components/commons/ButtonsWrapper";
 const Client = () => {
   return (
     <ButtonsWrapper>
-      <Button link="/"> View Appointments</Button>
+      <Button link="/client/booked"> View Appointments</Button>
       <Button link="/new-appointment">Create New Appointments</Button>
     </ButtonsWrapper>
   );
