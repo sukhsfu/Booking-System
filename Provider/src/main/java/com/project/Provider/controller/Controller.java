@@ -3,6 +3,7 @@ package com.project.Provider.controller;
 
 import com.project.Provider.model.Provider;
 import com.project.Provider.model.ProviderResponse;
+import com.project.Provider.model.ProviderResponseAppointment;
 import com.project.Provider.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,6 +86,16 @@ public class Controller {
             httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(providers,httpStatus);
+    }
+
+    @GetMapping("/providerAppointment/{id}")
+    public ResponseEntity<Optional> providerAppointment(@PathVariable int id){
+        Optional<ProviderResponseAppointment> provider = providerService.getProviderAppointment(id);
+        HttpStatus httpStatus = HttpStatus.OK;
+        if(provider.isEmpty()){
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(provider,httpStatus);
     }
 
 

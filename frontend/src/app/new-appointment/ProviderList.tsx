@@ -2,14 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import Table from "@/components/commons/Table";
-import { GET } from "./api/route";
+import { GET } from "../../api/route";
+import { NextRequest } from "next/server";
 
 const ProviderList = () => {
   const [data, setData] = useState<any>([]);
   const [headers, setHeaders] = useState<any>([]);
 
   useEffect(() => {
-    GET()
+    GET(new NextRequest("http://localhost:8000/provider/getAll"))
       .then((results) => results.json())
       .then((res) => {
         const json = res.data;

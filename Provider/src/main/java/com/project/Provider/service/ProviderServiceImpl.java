@@ -4,6 +4,7 @@ package com.project.Provider.service;
 import com.project.Provider.mapstruct.ProviderMapStruct;
 import com.project.Provider.model.Provider;
 import com.project.Provider.model.ProviderResponse;
+import com.project.Provider.model.ProviderResponseAppointment;
 import com.project.Provider.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,14 +35,14 @@ public class ProviderServiceImpl implements ProviderService {
         if (provider.isEmpty()){
             return Optional.empty();
         }
-        return Optional.ofNullable(mapper.providertoProviderResponse(provider.get()));
+        return Optional.ofNullable(mapper.toProviderResponse(provider.get()));
     }
 
     @Override
     @Transactional
     public List<ProviderResponse> getProviderByName(String name) {
 
-        return repository.findByNameContaining(name).stream().map(provider -> mapper.providertoProviderResponse(provider)).toList();
+        return repository.findByNameContaining(name).stream().map(provider -> mapper.toProviderResponse(provider)).toList();
     }
 
     @Override
@@ -53,17 +54,28 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     @Transactional
     public List<ProviderResponse> getAllProviders() {
-        return repository.findAll().stream().map(provider -> mapper.providertoProviderResponse(provider)).toList();
+        return repository.findAll().stream().map(provider -> mapper.toProviderResponse(provider)).toList();
     }
 
     @Override
     public List<ProviderResponse> getProviderByService(String service) {
-        return repository.findByServiceContaining(service).stream().map(provider -> mapper.providertoProviderResponse(provider)).toList();
+        return repository.findByServiceContaining(service).stream().map(provider -> mapper.toProviderResponse(provider)).toList();
     }
 
     @Override
     public List<ProviderResponse> getProviderByServiceAndCity(String service, String city) {
-        return repository.findByServiceAndCity(service,city).stream().map(provider -> mapper.providertoProviderResponse(provider)).toList();
+        return repository.findByServiceAndCity(service,city).stream().map(provider -> mapper.toProviderResponse(provider)).toList();
+    }
+
+    @Override
+    @Transactional
+    public Optional<ProviderResponseAppointment> getProviderAppointment(int id) {
+
+        Optional<Provider> provider = repository.findById(id);
+        if (provider.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.ofNullable(mapper.toProviderResponseAppointment(provider.get()));
     }
 
 

@@ -6,10 +6,14 @@ import SignUpForm, {
   Input,
   Error,
 } from "@/components/commons/SignUpForm";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
+import { GET } from "../../../api/route";
+import { NextRequest } from "next/server";
+import { providerIdSelected } from "@/redux/search/appointmentdata-slice";
+import { useSelector } from "react-redux";
 
 const FieldSet = styled.fieldset`
   margin-bottom: 30px;
@@ -28,6 +32,8 @@ const StyledDiv = styled.div`
   width: 400px;
 `;
 const CreateAppointment: React.FC = () => {
+  const providerId = useSelector(providerIdSelected);
+  const [provider, setProvider] = useState<any>();
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     appointmentDate: "",
@@ -36,6 +42,18 @@ const CreateAppointment: React.FC = () => {
   const [formErrors, setFormErrors] = useState({
     appointmentDate: "",
   });
+
+  useEffect(() => {
+    GET(
+      new NextRequest(
+        `http://localhost:8000/provider/providerAppointment/${providerId}`
+      )
+    )
+      .then((results) => results.json())
+      .then((res) => {
+        setProvider(res.data);
+      });
+  }, []);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -66,6 +84,7 @@ const CreateAppointment: React.FC = () => {
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
+      console.log(formData.appointmentDate);
       setSuccess(true);
     }
   };
@@ -79,18 +98,18 @@ const CreateAppointment: React.FC = () => {
       <FieldSet>
         <Legend> Provider Details</Legend>
         <div>
-          <StyledP>Sukhwinder Singh</StyledP>
-          <StyledP>7786971684</StyledP>
-          <StyledP>sukh.dhaliwal.9678@gmail.com</StyledP>
+          <StyledP>{provider?.name}</StyledP>
+          <StyledP>{provider?.phone}</StyledP>
+          <StyledP>{provider?.email}</StyledP>
         </div>
       </FieldSet>
 
       <FieldSet>
         <Legend> Appointment Address</Legend>
         <div>
-          <StyledP>6971 144 ST</StyledP>
-          <StyledP> Surrey, BC Canada</StyledP>
-          <StyledP> V3W 5R8</StyledP>
+          <StyledP>{provider?.street}</StyledP>
+          <StyledP> {provider?.cityState}</StyledP>
+          <StyledP> {provider?.postalCode}</StyledP>
         </div>
       </FieldSet>
 
