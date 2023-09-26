@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import React from "react";
 import OptionsBox from "./OptionsBox";
 import styled from "styled-components";
 import { searchOptions } from "@/constants";
+import { placeHolderSearchId } from "@/redux/search/placeHolder-slice";
+import { useSelector } from "react-redux";
 
 const UnitBarContainer = styled.div`
   display: flex;
@@ -30,8 +31,7 @@ const FlexRow = styled.div`
 `;
 
 const OptionsBar = () => {
-  const params = useSearchParams();
-  const OptionSelected = params?.get("searchId");
+  const OptionSelected = useSelector(placeHolderSearchId);
 
   return (
     <UnitBarContainer id="unitbar-container">

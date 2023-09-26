@@ -1,8 +1,7 @@
 package com.project.Appointment.service;
 
 import com.project.Appointment.helper.ServiceCaller;
-import com.project.Appointment.model.Appointment;
-import com.project.Appointment.model.AppointmentDetails;
+import com.project.Appointment.model.*;
 import com.project.Appointment.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,54 +25,47 @@ public class AppointmentServiceImpl implements AppointmentService{
 
 
     @Override
-    public  AppointmentDetails createNewAppointment(Appointment appointment) {
-        String client = serviceCaller.getClientById(appointment.getClientId());
-        String provider= serviceCaller.getProviderById(appointment.getProviderId());
+    public AppointmentResponseClient createNewAppointment(Appointment appointment) {
+        Client client = serviceCaller.getClientById(appointment.getClientId());
+        Provider provider= serviceCaller.getProviderById(appointment.getProviderId());
         if (client == null || provider == null){
             return null;
         }
 
         Appointment appointment1 = repository.save(appointment);
 
-        AppointmentDetails appointmentDetails = new AppointmentDetails();
-        appointmentDetails.setClient(client);
-        appointmentDetails.setProvider(provider);
-        appointmentDetails.setAppointment(appointment1);
 
 
-        return appointmentDetails;
+
+        return new AppointmentResponseClient(provider,appointment1);
 
     }
 
     @Override
-    public List<AppointmentDetails> getAllByClient(int clientId) {
+    public List<AppointmentResponseClient> getAllByClient(int clientId) {
        List<Appointment> appointments =  repository.findAllByClientId(clientId);
-        String client = serviceCaller.getClientById(clientId);
+        Client client = serviceCaller.getClientById(clientId);
         if (appointments.isEmpty() || client == null){
            return null;
        }
-        List<AppointmentDetails> appointmentDetailsList = appointments.stream().map((appointment -> {
-            String provider = serviceCaller.getProviderById(appointment.getProviderId());
-            AppointmentDetails appointmentDetails = new AppointmentDetails(client, provider, appointment);
-            return appointmentDetails;
-        })).toList();
 
-        return appointmentDetailsList;
+        return appointments.stream().map((appointment -> {
+            Provider provider = serviceCaller.getProviderById(appointment.getProviderId());
+            return new AppointmentResponseClient(provider, appointment);
+        })).toList();
     }
 
     @Override
-    public List<AppointmentDetails> getAllByProvider(int providerId) {
+    public List<AppointmentResponseProvider> getAllByProvider(int providerId) {
         List<Appointment> appointments =  repository.findAllByProviderId(providerId);
-        String provider = serviceCaller.getProviderById(providerId);
+        Provider provider = serviceCaller.getProviderById(providerId);
         if (appointments.isEmpty() || provider == null){
             return null;
         }
-        List<AppointmentDetails> appointmentDetailsList = appointments.stream().map((appointment -> {
-            String client = serviceCaller.getClientById(appointment.getClientId());
-            AppointmentDetails appointmentDetails = new AppointmentDetails(client, provider, appointment);
-            return appointmentDetails;
-        })).toList();
 
-        return appointmentDetailsList;
+        return appointments.stream().map((appointment -> {
+            Client client = serviceCaller.getClientById(appointment.getClientId());
+            return new AppointmentResponseProvider(client, appointment);
+        })).toList();
     }
 }

@@ -2,11 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  IconLookup,
-  IconName,
-  IconPrefix,
-} from "@fortawesome/fontawesome-common-types";
+import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 
 const HeaderRow = styled.tr`
   background-color: #334155;
@@ -18,22 +14,21 @@ const HeaderRow = styled.tr`
   }
 `;
 
-type IconProp = IconName | [IconPrefix, IconName] | IconLookup;
 type Props = {
-  icon: IconProp;
+  icon: IconDefinition | null;
+  headers: [string] | null;
 };
 
-const TableHeader: React.FC<Props> = ({ icon }) => {
+const TableHeader: React.FC<Props> = ({ icon, headers }) => {
   return (
     <HeaderRow>
-      <th>{<FontAwesomeIcon icon={icon} />}</th>
-      <th>Provider Id</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Service</th>
-      <th>Price</th>
-      <th>Address</th>
+      {icon && <th>{<FontAwesomeIcon icon={icon} />}</th>}
+      {headers?.map((header: string, index) => {
+        header = header.replace(/\bid\b/g, "providerId");
+        header = header.replace(/([A-Z])/g, " $1");
+        header = header.replace(/^\w/, (match) => match.toUpperCase());
+        return <th key={index}>{header}</th>;
+      })}
     </HeaderRow>
   );
 };

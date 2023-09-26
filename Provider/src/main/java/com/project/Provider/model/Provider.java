@@ -9,11 +9,11 @@ public class Provider {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int providerId;
+    private int id;
     private String name;
     private String email;
     private String phone;
-    private String specialization;
+    private String service;
     private double price;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -23,21 +23,21 @@ public class Provider {
     public Provider() {
     }
 
-    public Provider(String name, String email, String phone, String specialization, Location location, double price) {
+    public Provider(String name, String email, String phone, String service, Location location, double price) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.specialization = specialization;
+        this.service = service;
         this.location = location;
         this.price = price;
     }
 
-    public int getProviderId() {
-        return providerId;
+    public int getId() {
+        return id;
     }
 
-    public void setProviderId(int providerId) {
-        this.providerId = providerId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -64,12 +64,12 @@ public class Provider {
         this.phone = phone;
     }
 
-    public String getSpecialization() {
-        return specialization;
+    public String getService() {
+        return service;
     }
 
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
+    public void setService(String service) {
+        this.service = service;
     }
 
     public Location getLocation() {

@@ -1,8 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback } from "react";
-import queryString from "query-string";
 import styled from "styled-components";
 import { onPlaceHolderChange } from "@/redux/search/placeHolder-slice";
 import { useDispatch } from "react-redux";
@@ -49,32 +47,10 @@ const OptionsBox: React.FC<Props> = ({
   placeHolderText,
 }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
-  const params = useSearchParams();
 
   const handleClick = useCallback(() => {
-    let currentQuery = {};
-
-    if (params) {
-      currentQuery = queryString.parse(params.toString());
-    }
-
-    const updatedQuery: any = {
-      ...currentQuery,
-      searchId,
-    };
-
-    const url = queryString.stringifyUrl(
-      {
-        url: "/new-appointment",
-        query: updatedQuery,
-      },
-      { skipNull: true }
-    );
-
-    router.push(url);
-    dispatch(onPlaceHolderChange(placeHolderText));
-  }, [label, params, router]);
+    dispatch(onPlaceHolderChange({ placeHolderText, searchId }));
+  }, [placeHolderText, searchId]);
 
   return (
     <BoxContainer onClick={handleClick} selected={selected}>

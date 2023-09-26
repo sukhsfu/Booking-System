@@ -1,7 +1,9 @@
 package com.project.Provider.service;
 
 
+import com.project.Provider.mapstruct.ProviderMapStruct;
 import com.project.Provider.model.Provider;
+import com.project.Provider.model.ProviderResponse;
 import com.project.Provider.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private ProviderMapStruct mapper;
     @Override
     @Transactional
     public Provider addProvider(Provider provider) {
@@ -23,14 +28,20 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public Optional<Provider> getProviderByID(int id) {
-        return repository.findById(id);
+    public Optional<ProviderResponse> getProviderByID(int id) {
+
+        Optional<Provider> provider = repository.findById(id);
+        if (provider.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.ofNullable(mapper.providertoProviderResponse(provider.get()));
     }
 
     @Override
     @Transactional
-    public List<Provider> getProviderByName(String name) {
-        return repository.findByNameContaining(name);
+    public List<ProviderResponse> getProviderByName(String name) {
+
+        return repository.findByNameContaining(name).stream().map(provider -> mapper.providertoProviderResponse(provider)).toList();
     }
 
     @Override
@@ -41,18 +52,18 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public List<Provider> getAllProviders() {
-        return repository.findAll();
+    public List<ProviderResponse> getAllProviders() {
+        return repository.findAll().stream().map(provider -> mapper.providertoProviderResponse(provider)).toList();
     }
 
     @Override
-    public List<Provider> getProviderBySpecialization(String specialization) {
-        return repository.findBySpecializationContaining(specialization);
+    public List<ProviderResponse> getProviderByService(String service) {
+        return repository.findByServiceContaining(service).stream().map(provider -> mapper.providertoProviderResponse(provider)).toList();
     }
 
     @Override
-    public List<Provider> getProviderBySpecializationAndCity(String specialization, String city) {
-        return repository.findBySpecializationAndCity(specialization,city);
+    public List<ProviderResponse> getProviderByServiceAndCity(String service, String city) {
+        return repository.findByServiceAndCity(service,city).stream().map(provider -> mapper.providertoProviderResponse(provider)).toList();
     }
 
 

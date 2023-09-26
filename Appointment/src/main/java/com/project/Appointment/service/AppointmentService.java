@@ -1,16 +1,15 @@
 package com.project.Appointment.service;
 
 import com.project.Appointment.model.Appointment;
-import com.project.Appointment.model.AppointmentDetails;
-import org.json.JSONObject;
-import org.springframework.http.ResponseEntity;
+import com.project.Appointment.model.AppointmentResponseClient;
+import com.project.Appointment.model.AppointmentResponseProvider;
 
 import java.util.List;
 
 public interface AppointmentService {
-    AppointmentDetails createNewAppointment(Appointment appointment);
+    AppointmentResponseClient createNewAppointment(Appointment appointment);
 
-    List<AppointmentDetails> getAllByClient(int clientId);
+    List<AppointmentResponseClient> getAllByClient(int clientId);
 
-    List<AppointmentDetails> getAllByProvider(int providerId);
+    List<AppointmentResponseProvider> getAllByProvider(int providerId);
 }

@@ -1,10 +1,14 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import TableHeader from "./TableHeader";
-import { getDatafromJson } from "@/actions/getDatafromJson";
 import { faSquare, faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 import TableRow from "./TableRow";
 import styled from "styled-components";
+import {
+  itemSelected,
+  onItemSelected,
+} from "@/redux/search/newappointment-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   overflow-x: auto;
@@ -33,48 +37,58 @@ const StyledTbody = styled.tbody`
   }
 `;
 
-type Props = {};
-type DataProps = {
-  providerId: string | number;
-  name: string;
-  email: string;
-  phone: string;
-  service: string;
-  price: string;
-  address: string;
+type Props = {
+  data: [any];
+  headers: [string] | null;
+  selectAvailble?: boolean;
 };
 
-const Table = (props: Props) => {
-  const [data, setData] = useState<any>([]);
+const Table = ({ data, headers, selectAvailble = false }: Props) => {
   const [selectedKey, setSelectedKey] = useState<number | string>(0);
-  const [itemSelected, setItemSelected] = useState(false);
+  const anyItemSelected = useSelector(itemSelected);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const json = getDatafromJson();
-    setData(json);
+    return () => {
+      setSelectedKey(0);
+      dispatch(onItemSelected(false));
+    };
   }, []);
 
   const onRowSelected = useCallback((key: number | string) => {
     setSelectedKey(key);
-    setItemSelected(true);
+    dispatch(onItemSelected(true));
   }, []);
 
   return (
     <Container>
       <StyledTable>
         <StyledThead>
-          <TableHeader icon={itemSelected ? faSquareCheck : faSquare} />
+          <TableHeader
+            headers={headers}
+            icon={
+              selectAvailble
+                ? anyItemSelected
+                  ? faSquareCheck
+                  : faSquare
+                : null
+            }
+          />
         </StyledThead>
         <StyledTbody>
-          {data?.map((rowValue: DataProps) => {
-            const icon =
-              rowValue?.providerId == selectedKey ? faSquareCheck : faSquare;
+          {data?.map((rowValue: any) => {
+            const icon = selectAvailble
+              ? rowValue?.id == selectedKey
+                ? faSquareCheck
+                : faSquare
+              : null;
             return (
               <TableRow
-                key={rowValue?.providerId}
-                {...rowValue}
+                key={rowValue?.id}
+                data={rowValue}
                 icon={icon}
-                onRowSelected={onRowSelected}
+                onRowSelected={selectAvailble ? onRowSelected : null}
+                headers={headers}
               />
             );
           })}

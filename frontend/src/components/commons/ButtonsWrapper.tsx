@@ -1,21 +1,5 @@
-"use client";
-
 import { ReactNode } from "react";
-import { styled } from "styled-components";
-
-const Parent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 50px;
-`;
+import styles from "./styles/buttonWraper.module.css";
 
 interface MyComponentProps {
   children: ReactNode;
@@ -23,9 +7,9 @@ interface MyComponentProps {
 
 const ButtonsWrapper = ({ children }: MyComponentProps) => {
   return (
-    <Parent>
-      <Wrapper>{children} </Wrapper>{" "}
-    </Parent>
+    <div className={styles.wrapper}>
+      <div>{children} </div>
+    </div>
   );
 };
 

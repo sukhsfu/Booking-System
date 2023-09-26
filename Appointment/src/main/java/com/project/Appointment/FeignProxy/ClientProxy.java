@@ -1,5 +1,6 @@
 package com.project.Appointment.FeignProxy;
 
+import com.project.Appointment.model.Client;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,5 +12,5 @@ import static com.project.Appointment.Constants.FINDBYID;
 public interface ClientProxy {
 
     @GetMapping("/client"+FINDBYID)
-    String getClientById(@PathVariable int id);
+    Client getClientById(@PathVariable int id);
 }

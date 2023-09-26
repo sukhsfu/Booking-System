@@ -1,13 +1,17 @@
 "use client";
 
+import React from "react";
+
 import SearchBar from "@/components/commons/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { styled } from "styled-components";
 import OptionsBar from "@/components/commons/OptionsBar";
-import Table from "@/components/commons/Table";
-import Button from "@/components/commons/Button";
+import ActionButton from "@/components/commons/ActionButton";
+import { itemSelected } from "@/redux/search/newappointment-slice";
+import { useSelector } from "react-redux";
+import ProviderList from "./ProviderList";
 
 const Parent = styled.div`
   display: flex;
@@ -26,6 +30,7 @@ const HeadBar = styled.div`
 `;
 
 const NewAppointment = () => {
+  const anyItemSelected = useSelector(itemSelected);
   const icon = (
     <FontAwesomeIcon
       icon={faMagnifyingGlass}
@@ -37,9 +42,15 @@ const NewAppointment = () => {
     <Parent>
       <HeadBar>
         <SearchBar icon={icon}></SearchBar>
+        <ActionButton
+          label="Create new Appointment"
+          link="/create"
+          icon={<FontAwesomeIcon icon={faPlus} />}
+          disabled={!anyItemSelected}
+        ></ActionButton>
       </HeadBar>
       <OptionsBar></OptionsBar>
-      <Table />
+      <ProviderList />
     </Parent>
   );
 };
