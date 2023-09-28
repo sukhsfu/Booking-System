@@ -1,0 +1,12 @@
+.topBar {
+  width: 100%;
+  text-align: center;
+  padding: 5px;
+  border-bottom: 1px solid black;
+  color: #4e79df;
+  background-color: #fafafa;
+}
+
+.topBar:hover {
+  color: blue;
+}

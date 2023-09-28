@@ -10,12 +10,11 @@ public class CustomUserDetails implements UserDetails {
 
     private String userName;
     private String password;
-    private String role;
+
 
     public CustomUserDetails(UserCredential userCredential) {
         this.userName = userCredential.getUserName();
         this.password = userCredential.getPassword();
-        this.role = userCredential.getRole();
     }
 
     @Override
@@ -33,9 +32,6 @@ public class CustomUserDetails implements UserDetails {
         return userName;
     }
 
-    public String getRole() {
-        return role;
-    }
 
     @Override
     public boolean isAccountNonExpired() {

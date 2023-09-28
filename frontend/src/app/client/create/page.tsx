@@ -10,10 +10,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
-import { GET } from "../../../api/route";
+import { GET, POST } from "../../../api/route";
 import { NextRequest } from "next/server";
-import { providerIdSelected } from "@/redux/search/appointmentdata-slice";
-import { useSelector } from "react-redux";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const FieldSet = styled.fieldset`
   margin-bottom: 30px;
@@ -32,7 +32,9 @@ const StyledDiv = styled.div`
   width: 400px;
 `;
 const CreateAppointment: React.FC = () => {
-  const providerId = useSelector(providerIdSelected);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const providerId = searchParams.get("id");
   const [provider, setProvider] = useState<any>();
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -44,16 +46,23 @@ const CreateAppointment: React.FC = () => {
   });
 
   useEffect(() => {
-    GET(
-      new NextRequest(
-        `http://localhost:8000/provider/providerAppointment/${providerId}`
-      )
-    )
+    GET(`http://localhost:8000/provider/providerAppointment/${providerId}`)
       .then((results) => results.json())
       .then((res) => {
         setProvider(res.data);
       });
   }, []);
+
+  const CreateAppointment = async (date: any) => {
+    POST(
+      "http://localhost:8010/appointment/create",
+      JSON.stringify({
+        providerId: providerId,
+        clientId: 1,
+        appointmentDate: date,
+      })
+    ).then((result) => result && setSuccess(true));
+  };
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -71,6 +80,10 @@ const CreateAppointment: React.FC = () => {
     });
   };
 
+  const handleBooked = (e: any) => {
+    e.preventDefault();
+    router.push("/client/booked");
+  };
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const errors: any = {};
@@ -84,14 +97,13 @@ const CreateAppointment: React.FC = () => {
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
-      console.log(formData.appointmentDate);
-      setSuccess(true);
+      CreateAppointment(formData.appointmentDate);
     }
   };
 
   return (
     <SignUpForm
-      handleSubmit={handleSubmit}
+      handleSubmit={success ? handleBooked : handleSubmit}
       buttonText={success ? "Back to Booked Appointment" : "Create Appointment"}
       noTitle
     >
