@@ -29,7 +29,7 @@ public class Controller {
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<Optional> findById(@PathVariable int id){
+    public ResponseEntity<Optional> findById(@PathVariable int id, @RequestHeader String userName){
         Optional<ProviderResponse> provider = providerService.getProviderByID(id);
         HttpStatus httpStatus = HttpStatus.OK;
         if(provider.isEmpty()){

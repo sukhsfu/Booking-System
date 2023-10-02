@@ -8,6 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -20,7 +22,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public String addNewUser(@RequestBody UserCredential user){
-        return service.saveUser(user);
+        service.saveUser(user);
+        return getToken(user);
     }
 
     @PostMapping("/token")
@@ -35,9 +38,17 @@ public class AuthController {
 
     }
 
-    @GetMapping("/validate")
-    public String validateToken(@RequestParam String token){
-        service.validateToken(token);
-        return "valid token";
+    @GetMapping("/validate/provider")
+    public String validateProviderToken(@RequestAttribute String userName, @RequestParam String token){
+        return userName;
+    }
+
+    @GetMapping("/validate/client")
+    public String validateClientToken(@RequestAttribute String userName, @RequestParam String token){
+        return userName;
+    }
+    @GetMapping("/validate/appointment")
+    public String validateAppointmentToken(@RequestAttribute String userName , @RequestParam String token){
+        return userName;
     }
 }

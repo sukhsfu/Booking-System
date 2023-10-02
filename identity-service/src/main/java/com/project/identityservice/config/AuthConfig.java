@@ -1,6 +1,8 @@
 package com.project.identityservice.config;
 
 import com.project.identityservice.service.CustomUserDetailsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,11 +15,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class AuthConfig {
+
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public UserDetailsService userDetailsService(){
@@ -29,9 +36,13 @@ public class AuthConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http.csrf((csrf) -> csrf.disable())
-                .authorizeRequests()
-                .requestMatchers("/auth/register","/auth/token","/auth/validate").permitAll()
-                .and().build();
+                .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests.requestMatchers("/auth/register","/auth/token").permitAll()
+                        .requestMatchers("/auth/validate/provider").hasAuthority("PROVIDER")
+                        .requestMatchers("/auth/validate/client").hasAuthority("CLIENT")
+                        .requestMatchers("/auth/validate/appointment").hasAnyAuthority("PROVIDER","CLIENT"))
+                .authenticationProvider(authenticationProvider()).addFilterBefore(
+                        jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean
