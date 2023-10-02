@@ -78,5 +78,14 @@ public class ProviderServiceImpl implements ProviderService {
         return Optional.ofNullable(mapper.toProviderResponseAppointment(provider.get()));
     }
 
+    @Override
+    public Optional<ProviderResponse> getProviderByUserName(String userName) {
+        Optional<Provider> provider = repository.findByUserName(userName);
+        if (provider.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.ofNullable(mapper.toProviderResponse(provider.get()));
+    }
+
 
 }

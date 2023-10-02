@@ -10,6 +10,9 @@ public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Column(unique = true)
+    private String userName;
     private String name;
     private String email;
     private String phone;
@@ -86,5 +89,13 @@ public class Provider {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

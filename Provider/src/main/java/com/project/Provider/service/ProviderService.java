@@ -25,4 +25,6 @@ public interface ProviderService {
     List<ProviderResponse> getProviderByServiceAndCity(String service, String city);
 
     Optional<ProviderResponseAppointment> getProviderAppointment(int id);
+
+    Optional<ProviderResponse> getProviderByUserName(String userName);
 }

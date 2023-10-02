@@ -22,14 +22,27 @@ public class Controller {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Provider> createProvide(@RequestBody Provider provider){
+    public ResponseEntity<Provider> createProvide(@RequestBody Provider provider, @RequestHeader String userName){
+        provider.setUserName(userName);
         Provider provider1 = providerService.addProvider(provider);
         return new ResponseEntity<>(provider1, HttpStatus.CREATED);
 
     }
 
+    @GetMapping("/findByUserName")
+    public ResponseEntity<Optional> findByUserName(@RequestHeader String userName){
+        Optional<ProviderResponse> provider = providerService.getProviderByUserName(userName);
+        HttpStatus httpStatus = HttpStatus.OK;
+        if(provider.isEmpty()){
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(provider,httpStatus);
+    }
+
+
+
     @GetMapping("/findById/{id}")
-    public ResponseEntity<Optional> findById(@PathVariable int id, @RequestHeader String userName){
+    public ResponseEntity<Optional> findById(@PathVariable int id){
         Optional<ProviderResponse> provider = providerService.getProviderByID(id);
         HttpStatus httpStatus = HttpStatus.OK;
         if(provider.isEmpty()){

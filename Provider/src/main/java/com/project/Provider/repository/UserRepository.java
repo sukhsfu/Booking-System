@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<Provider,Integer> {
 
     Optional<Provider> findById(Integer id);
 
+    Optional<Provider> findByUserName(String userName);
+
     List<Provider> findByNameContaining(String name);
 
     void deleteById(Integer id);
