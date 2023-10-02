@@ -16,9 +16,20 @@ public class Controller {
     @Autowired
     private ClientService clientService;
     @PostMapping("/create")
-    public ResponseEntity<Client> createClient(@RequestBody Client client){
+    public ResponseEntity<Client> createClient(@RequestBody Client client, @RequestHeader String userName){
+        client.setUserName(userName);
         Client client1 = clientService.createNewClient(client);
         return  new ResponseEntity<>(client1, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/findByUserName")
+    public ResponseEntity<Optional> findByUserName(@RequestHeader String userName){
+        Optional<Client> client = clientService.getClientByUserName(userName);
+        HttpStatus httpStatus = HttpStatus.OK;
+        if(client.isEmpty()){
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(client,httpStatus);
     }
 
     @GetMapping("/findById/{id}")

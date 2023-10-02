@@ -26,4 +26,9 @@ public class ClientServiceImpl implements  ClientService{
     public Optional<Client> getClientByID(int id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Optional<Client> getClientByUserName(String userName) {
+        return repository.findByUserName(userName);
+    }
 }
