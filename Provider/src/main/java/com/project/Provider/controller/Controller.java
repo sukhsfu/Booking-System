@@ -39,6 +39,15 @@ public class Controller {
         return new ResponseEntity<>(provider,httpStatus);
     }
 
+    @GetMapping("/userNameToId/{userName}")
+    public ResponseEntity<Integer> getIdFromUserName(@PathVariable String userName){
+        Optional<ProviderResponse> provider = providerService.getProviderByUserName(userName);
+        HttpStatus httpStatus = HttpStatus.OK;
+        if(provider.isEmpty()){
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(provider.get().getId(),httpStatus);
+    }
 
 
     @GetMapping("/findById/{id}")

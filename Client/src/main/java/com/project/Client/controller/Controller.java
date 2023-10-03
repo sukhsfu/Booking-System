@@ -41,4 +41,14 @@ public class Controller {
         }
         return new ResponseEntity<>(client,httpStatus);
     }
+
+    @GetMapping("/userNameToId/{userName}")
+    public ResponseEntity<Integer> getIdFromUserName(@PathVariable String userName){
+        Optional<Client> client = clientService.getClientByUserName(userName);
+        HttpStatus httpStatus = HttpStatus.OK;
+        if(client.isEmpty()){
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(client.get().getId(), httpStatus);
+    }
 }
