@@ -25,27 +25,24 @@ public class AppointmentServiceImpl implements AppointmentService{
 
 
     @Override
-    public AppointmentResponseClient createNewAppointment(Appointment appointment) {
-        Client client = serviceCaller.getClientById(appointment.getClientId());
+    public AppointmentResponseClient createNewAppointment(Appointment appointment, String userName) {
+        int clientId = serviceCaller.getClientId(userName);
         Provider provider= serviceCaller.getProviderById(appointment.getProviderId());
-        if (client == null || provider == null){
+        if (clientId == 0 || provider == null){
             return null;
         }
+        appointment.setClientId(clientId);
 
         Appointment appointment1 = repository.save(appointment);
-
-
-
-
         return new AppointmentResponseClient(provider,appointment1);
 
     }
 
     @Override
-    public List<AppointmentResponseClient> getAllByClient(int clientId) {
+    public List<AppointmentResponseClient> getAllByClient(String clientUserName) {
+        int clientId = serviceCaller.getClientId(clientUserName);
        List<Appointment> appointments =  repository.findAllByClientId(clientId);
-        Client client = serviceCaller.getClientById(clientId);
-        if (appointments.isEmpty() || client == null){
+        if (appointments.isEmpty() || clientId == 0){
            return null;
        }
 
@@ -56,10 +53,10 @@ public class AppointmentServiceImpl implements AppointmentService{
     }
 
     @Override
-    public List<AppointmentResponseProvider> getAllByProvider(int providerId) {
+    public List<AppointmentResponseProvider> getAllByProvider(String providerUserName) {
+        int providerId = serviceCaller.getProviderId(providerUserName);
         List<Appointment> appointments =  repository.findAllByProviderId(providerId);
-        Provider provider = serviceCaller.getProviderById(providerId);
-        if (appointments.isEmpty() || provider == null){
+        if (appointments.isEmpty() || providerId == 0){
             return null;
         }
 

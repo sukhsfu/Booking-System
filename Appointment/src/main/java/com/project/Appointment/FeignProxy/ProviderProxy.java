@@ -11,6 +11,9 @@ import static com.project.Appointment.Constants.*;
 @FeignClient(name = "provider", url = "${PROVIDER_URI:http://localhost:8000}")
 public interface ProviderProxy {
 
-    @GetMapping("/provider"+FINDBYID)
+    @GetMapping(PROVIDER+FINDBYID)
     Provider getProviderById(@PathVariable int id);
+
+    @GetMapping(PROVIDER + USERNAMETOID)
+    Integer getIdFromUserName(@PathVariable String userName);
 }

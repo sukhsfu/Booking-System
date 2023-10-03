@@ -20,8 +20,8 @@ public class Controller {
     private AppointmentService appointmentService;
 
     @PostMapping("/create")
-    public ResponseEntity<AppointmentResponseClient> create(@RequestBody Appointment appointment){
-        AppointmentResponseClient newAppointment = appointmentService.createNewAppointment(appointment);
+    public ResponseEntity<AppointmentResponseClient> create(@RequestHeader String userName, @RequestBody Appointment appointment){
+        AppointmentResponseClient newAppointment = appointmentService.createNewAppointment(appointment,userName);
         if (newAppointment == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -29,9 +29,9 @@ public class Controller {
     }
 
 
-    @GetMapping("/getAllByClient/{clientId}")
-    public ResponseEntity<List<AppointmentResponseClient>> getAllByClient(@PathVariable int clientId){
-        List<AppointmentResponseClient> allByClient = appointmentService.getAllByClient(clientId);
+    @GetMapping("/getAllByClient")
+    public ResponseEntity<List<AppointmentResponseClient>> getAllByClient(@RequestHeader String userName){
+        List<AppointmentResponseClient> allByClient = appointmentService.getAllByClient(userName);
         if (allByClient == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -39,9 +39,9 @@ public class Controller {
     }
 
 
-    @GetMapping("/getAllByProvider/{providerId}")
-    public  ResponseEntity<List<AppointmentResponseProvider>>  getAllByProvider(@PathVariable int providerId){
-        List<AppointmentResponseProvider> allByProvider =  appointmentService.getAllByProvider(providerId);
+    @GetMapping("/getAllByProvider")
+    public  ResponseEntity<List<AppointmentResponseProvider>>  getAllByProvider(@RequestHeader String userName){
+        List<AppointmentResponseProvider> allByProvider =  appointmentService.getAllByProvider(userName);
         if (allByProvider == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -7,9 +7,9 @@ import com.project.Appointment.model.AppointmentResponseProvider;
 import java.util.List;
 
 public interface AppointmentService {
-    AppointmentResponseClient createNewAppointment(Appointment appointment);
+    AppointmentResponseClient createNewAppointment(Appointment appointment, String userName);
 
-    List<AppointmentResponseClient> getAllByClient(int clientId);
+    List<AppointmentResponseClient> getAllByClient(String clientUserName);
 
-    List<AppointmentResponseProvider> getAllByProvider(int providerId);
+    List<AppointmentResponseProvider> getAllByProvider(String providerUserName);
 }

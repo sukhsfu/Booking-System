@@ -42,5 +42,31 @@ public class ServiceCaller {
         }
     }
 
+    public int getClientId(String userName){
+        int clientId = 0;
+        try {
+            clientId = clientProxy.getIdFromUserName(userName);
+        }
+        catch (Exception ex){
+            System.out.println("Exception occurred");
+        }
+        finally {
+            return clientId;
+        }
+    }
+
+    public int getProviderId(String userName){
+        int providerId = 0;
+        try {
+            providerId = providerProxy.getIdFromUserName(userName);
+        }
+        catch (Exception ex){
+            System.out.println("Exception occurred");
+        }
+        finally {
+            return providerId;
+        }
+    }
+
 
 }
