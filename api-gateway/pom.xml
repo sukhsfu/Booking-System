@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.project</groupId>
 	<artifactId>api-gateway</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<name>api-gateway</name>
 	<description>Request gateway for the booking system</description>
 	<properties>

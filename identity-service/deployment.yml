@@ -23,7 +23,7 @@ spec:
         app: identity-service-api
     spec:
       containers:
-      - image: sukhdhaliwal/identity-service:0.0.1-SNAPSHOT
+      - image: sukhdhaliwal/identity-service:0.0.2-SNAPSHOT
         imagePullPolicy: IfNotPresent
         name: identity-service
         envFrom:
