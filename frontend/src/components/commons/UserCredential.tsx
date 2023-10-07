@@ -6,14 +6,14 @@ import SignUpForm, {
   Input,
   Error,
 } from "@/components/commons/SignUpForm";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 type Props = {
-  onSubmit: () => void;
+  onSubmit: (userName: string, password: string) => void;
   formNumber: string;
 };
 
-const UserCredential: React.FC<Props> = ({ onSubmit, formNumber }) => {
+const UserCredential: React.FC<Props> = memo(({ onSubmit, formNumber }) => {
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
@@ -69,7 +69,7 @@ const UserCredential: React.FC<Props> = ({ onSubmit, formNumber }) => {
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
-      onSubmit();
+      onSubmit(formData.userName, formData.password);
     }
   };
 
@@ -115,6 +115,6 @@ const UserCredential: React.FC<Props> = ({ onSubmit, formNumber }) => {
       </InputWrapper>
     </SignUpForm>
   );
-};
+});
 
 export default UserCredential;

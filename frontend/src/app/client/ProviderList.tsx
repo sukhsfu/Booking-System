@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Table from "@/components/commons/Table";
-import { GET } from "../../api/route";
+import { GET } from "../sign-up/api/token/route";
 import { NextRequest } from "next/server";
 
 const ProviderList = () => {

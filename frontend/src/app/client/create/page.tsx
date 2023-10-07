@@ -10,8 +10,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
-import { GET, POST } from "../../../api/route";
-import { NextRequest } from "next/server";
+import { GET, POST } from "@/api/route";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 

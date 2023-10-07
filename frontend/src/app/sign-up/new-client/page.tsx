@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
-import ProviderCredential from "../../components/commons/UserCredential";
-import ProviderInformation from "./ProviderInformation";
+import ClientCredential from "../../../components/commons/UserCredential";
 import { useRouter } from "next/navigation";
-import ProviderLocation from "./ProviderLocation";
+import ClientInformation from "./ClientInformation";
 
-const ProviderSignUp = () => {
+const ClientSignUp = () => {
   const router = useRouter();
-  const totalForms = 3;
+  const totalForms = 2;
   const [formPosition, setFormPosition] = useState(1);
   const onSubmitHandler = useCallback(() => {
     setFormPosition((preFormPosition) => {
@@ -22,19 +21,13 @@ const ProviderSignUp = () => {
   return (
     <>
       {formPosition === 1 && (
-        <ProviderCredential
+        <ClientCredential
           onSubmit={onSubmitHandler}
           formNumber={`${formPosition}/${totalForms}`}
         />
       )}
       {formPosition === 2 && (
-        <ProviderInformation
-          onSubmit={onSubmitHandler}
-          formNumber={`${formPosition}/${totalForms}`}
-        />
-      )}
-      {formPosition === 3 && (
-        <ProviderLocation
+        <ClientInformation
           onSubmit={onSubmitHandler}
           formNumber={`${formPosition}/${totalForms}`}
         />
@@ -43,4 +36,4 @@ const ProviderSignUp = () => {
   );
 };
 
-export default ProviderSignUp;
+export default ClientSignUp;
