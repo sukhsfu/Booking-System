@@ -12,9 +12,8 @@ const ProviderList = () => {
     fetch(new NextRequest("http://localhost:8000/provider/getAll"))
       .then((results) => results.json())
       .then((res) => {
-        const json = res.data;
-        json && setHeaders(Object.keys(json[0]));
-        setData(json);
+        res && setHeaders(Object.keys(res[0]));
+        setData(res);
       });
   }, []);
 
