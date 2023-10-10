@@ -19,7 +19,13 @@ const Select = styled.select`
 `;
 
 type Props = {
-  onSubmit: () => void;
+  onSubmit: (
+    address: string,
+    city: string,
+    state: string,
+    country: string,
+    postalCode: string
+  ) => void;
   formNumber: string;
 };
 
@@ -74,7 +80,13 @@ const ProviderLocation: React.FC<Props> = ({ onSubmit, formNumber }) => {
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
-      onSubmit();
+      onSubmit(
+        formData.streetAddress,
+        formData.city,
+        formData.province,
+        formData.country,
+        formData.postalCode
+      );
     }
   };
 

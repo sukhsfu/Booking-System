@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
-import { GET, POST } from "@/api/route";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
@@ -45,7 +44,7 @@ const CreateAppointment: React.FC = () => {
   });
 
   useEffect(() => {
-    GET(`http://localhost:8000/provider/providerAppointment/${providerId}`)
+    fetch(`http://localhost:8000/provider/providerAppointment/${providerId}`)
       .then((results) => results.json())
       .then((res) => {
         setProvider(res.data);
@@ -53,14 +52,14 @@ const CreateAppointment: React.FC = () => {
   }, []);
 
   const CreateAppointment = async (date: any) => {
-    POST(
-      "http://localhost:8010/appointment/create",
-      JSON.stringify({
+    fetch("http://localhost:8010/appointment/create", {
+      method: "POST",
+      body: JSON.stringify({
         providerId: providerId,
         clientId: 1,
         appointmentDate: date,
-      })
-    ).then((result) => result && setSuccess(true));
+      }),
+    }).then((result) => result && setSuccess(true));
   };
 
   const handleInputChange = (e: any) => {

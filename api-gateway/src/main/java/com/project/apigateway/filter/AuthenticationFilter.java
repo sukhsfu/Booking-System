@@ -4,11 +4,14 @@ package com.project.apigateway.filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpCookie;
 import org.springframework.http.server.PathContainer;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
@@ -27,24 +30,27 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
-            if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+
+            HttpCookie userToken = exchange.getRequest().getCookies().getFirst("userToken");
+
+            if (userToken == null) {
                 throw new RuntimeException("Missing authorization information");
             }
 
-            String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+            String authHeader = userToken.getValue();
 
-            String[] parts = authHeader.split(" ");
-
-            if (parts.length != 2 || !"Bearer".equals(parts[0])) {
-                throw new RuntimeException("Incorrect authorization structure");
+            String path = exchange.getRequest().getPath().toString();
+            List<String> pathSegments = Arrays.asList(path.split("/"));
+            if(pathSegments.size() < 3) {
+                throw new RuntimeException("Invalid path format: " + path);
             }
-            PathContainer.Element element = exchange.getRequest().getPath().pathWithinApplication().elements().get(1);
 
-            String requestType = ((PathContainer.PathSegment) element).valueToMatch();
+            String requestType = pathSegments.get(2);
+
 
             return webClientBuilder.build()
                     .get()
-                    .uri(uriBuilder -> uriBuilder.path("/auth/validate/"+requestType).queryParam("token",parts[1]).build())
+                    .uri(uriBuilder -> uriBuilder.path("/auth/validate/"+requestType).queryParam("token",authHeader).build())
                     .retrieve().bodyToMono(String.class)
                     .map(userName ->
                             {
@@ -54,6 +60,4 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     ).flatMap(chain::filter);
         };
     }
-
-
 }

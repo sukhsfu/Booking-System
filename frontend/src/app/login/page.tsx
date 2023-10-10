@@ -3,6 +3,8 @@
 import styled from "styled-components";
 import HiddenLable from "@/components/commons/HiddenLabel";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { NextRequest } from "next/server";
 import "./styles.css";
 
 const FormContainer = styled.div`
@@ -55,17 +57,50 @@ const StyledInput = styled.input`
 `;
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    userName: "",
+    password: "",
+  });
+  const [baseUrl, setBaseurl] = useState<string>("");
   const router = useRouter();
   const params = useSearchParams();
   const type: any = params?.get("type");
+
+  useEffect(() => {
+    const host = window.location.host;
+    setBaseurl(`http://${host}`);
+  }, []);
+
   const onLogIn = (event: any) => {
     event.preventDefault();
-    router.push(type);
+    const request = new NextRequest(`${baseUrl}/api/logIn`, {
+      method: "POST",
+      headers: {
+        credentials: "include",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...formData,
+      }),
+    });
+    fetch(request).then(
+      (results) => results.status === 200 && router.push("protected/" + type)
+    );
+  };
+
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        [name]: value,
+      };
+    });
   };
 
   const onSignUp = (event: any) => {
     event.preventDefault();
-    router.push("new-" + type);
+    router.push("sign-up/new-" + type);
   };
   return (
     <FormContainer>
@@ -80,15 +115,21 @@ const Login = () => {
                 type="text"
                 id="user-name"
                 placeholder="Username"
+                name="userName"
+                value={formData.userName}
+                onChange={handleInputChange}
               ></StyledInput>
             </div>
             <div>
               <HiddenLable htmlFor="user-password"> Password</HiddenLable>
               <StyledInput
                 className="box-size"
-                type="text"
+                type="password"
                 id="user-password"
                 placeholder="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
               ></StyledInput>
             </div>
           </Wrapper>

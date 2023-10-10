@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Table from "@/components/commons/Table";
-import { GET } from "../sign-up/api/token/route";
 import { NextRequest } from "next/server";
 
 const ProviderList = () => {
@@ -10,7 +9,7 @@ const ProviderList = () => {
   const [headers, setHeaders] = useState<any>([]);
 
   useEffect(() => {
-    GET(new NextRequest("http://localhost:8000/provider/getAll"))
+    fetch(new NextRequest("http://localhost:8000/provider/getAll"))
       .then((results) => results.json())
       .then((res) => {
         const json = res.data;

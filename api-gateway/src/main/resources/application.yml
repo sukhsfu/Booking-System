@@ -2,31 +2,14 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: provider-id
-          uri: ${PROVIDER_URI:http://localhost:8000}
+        - id: frontend-protected-id
+          uri: ${FRONTEND_URI:http://localhost:3000}
           predicates:
-            - Path=/provider/**
+            - Path=/protected/**
           filters:
             - AuthenticationFilter
 
-
-        - id: client-id
-          uri: ${CLIENT_URI:http://localhost:8001}
+        - id: fronted-id
+          uri: ${FRONTEND_URI:http://localhost:3000}
           predicates:
-            - Path=/client/**
-          filters:
-            - AuthenticationFilter
-
-        - id: appointment-id
-          uri: ${APPOINTMENT_URI:http://localhost:8010}
-          predicates:
-            - Path=/appointment/**
-          filters:
-            - AuthenticationFilter
-
-
-
-        - id: identity-service-id
-          uri: ${IDENTITY_SERVICE_URI:http://localhost:8080}
-          predicates:
-            - Path=/auth/**
+            - Path=/**

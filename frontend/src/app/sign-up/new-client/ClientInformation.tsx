@@ -9,7 +9,7 @@ import SignUpForm, {
 import React, { useState } from "react";
 
 type Props = {
-  onSubmit: () => void;
+  onSubmit: (name: string, password: string, phone: string) => void;
   formNumber: string;
 };
 
@@ -63,7 +63,7 @@ const ClientInformation: React.FC<Props> = ({ onSubmit, formNumber }) => {
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
-      onSubmit();
+      onSubmit(formData.displayName, formData.email, formData.phone);
     }
   };
 
