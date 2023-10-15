@@ -4,6 +4,7 @@ data:
   PROVIDER_URI: http://provider-api:8080
   APPOINTMENT_URI: http://appointment-api:8080
   IDENTITY_SERVICE_URI: http://identity-service-api:8080
+  FRONTEND_URI: http://frontend-api:8080
 
 kind: ConfigMap
 metadata:
