@@ -38,28 +38,32 @@ const CreateAppointment: React.FC = () => {
   const [formData, setFormData] = useState({
     appointmentDate: "",
   });
-
+  const [bookedDate, setBookedDate] = useState("");
   const [formErrors, setFormErrors] = useState({
     appointmentDate: "",
   });
 
   useEffect(() => {
-    fetch(`http://localhost:8000/provider/providerAppointment/${providerId}`)
+    fetch(`create/api/?providerId=${providerId}`)
       .then((results) => results.json())
       .then((res) => {
-        setProvider(res.data);
+        setProvider(res);
       });
   }, []);
 
   const CreateAppointment = async (date: any) => {
-    fetch("http://localhost:8010/appointment/create", {
+    fetch(`create/api`, {
       method: "POST",
       body: JSON.stringify({
         providerId: providerId,
-        clientId: 1,
         appointmentDate: date,
       }),
-    }).then((result) => result && setSuccess(true));
+    })
+      .then((result) => result.json())
+      .then((appointment) => {
+        appointment && setSuccess(true);
+        setBookedDate(appointment?.appointmentDate);
+      });
   };
 
   const handleInputChange = (e: any) => {
@@ -80,7 +84,7 @@ const CreateAppointment: React.FC = () => {
 
   const handleBooked = (e: any) => {
     e.preventDefault();
-    router.push("/client/booked");
+    router.push("/protected/client/booked");
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -150,7 +154,7 @@ const CreateAppointment: React.FC = () => {
               Appointment Booked
             </Legend>
             <div>
-              <StyledP>2023-09-27, 12:00 Am</StyledP>
+              <StyledP>{bookedDate}</StyledP>
             </div>
           </FieldSet>
         </StyledDiv>

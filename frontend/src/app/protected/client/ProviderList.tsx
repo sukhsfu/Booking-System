@@ -9,7 +9,10 @@ const ProviderList = () => {
   const [headers, setHeaders] = useState<any>([]);
 
   useEffect(() => {
-    fetch(new NextRequest("http://localhost:8000/provider/getAll"))
+    const host = window.location.host;
+    const baseUrl = `http://${host}`;
+
+    fetch(new NextRequest(`${baseUrl}/protected/client/search`))
       .then((results) => results.json())
       .then((res) => {
         res && setHeaders(Object.keys(res[0]));

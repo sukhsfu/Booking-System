@@ -44,7 +44,7 @@ const NewAppointment = () => {
 
   return (
     <>
-      <TopBarNavigation link="/client/booked">
+      <TopBarNavigation link="/protected/client/booked">
         View booked appointments
       </TopBarNavigation>
       <Parent>
