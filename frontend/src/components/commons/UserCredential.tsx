@@ -117,4 +117,5 @@ const UserCredential: React.FC<Props> = memo(({ onSubmit, formNumber }) => {
   );
 });
 
+UserCredential.displayName = "UserCredential";
 export default UserCredential;

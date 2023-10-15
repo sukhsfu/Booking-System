@@ -7,7 +7,7 @@ import BookedAppointment from "@/components/booked-appointment/BookedAppointment
 const Provider = async () => {
   const userName = headers().get("userName");
   const request = new NextRequest(
-    `http://localhost:8010/appointment/getAllByProvider`,
+    `${process.env.APPOINTMENT_URI}/appointment/getAllByProvider`,
     {
       method: "GET",
       headers: {

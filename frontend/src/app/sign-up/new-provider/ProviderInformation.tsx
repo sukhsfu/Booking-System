@@ -158,4 +158,5 @@ const ProviderInformation: React.FC<Props> = memo(
   }
 );
 
+ProviderInformation.displayName = "ProviderInformation";
 export default ProviderInformation;

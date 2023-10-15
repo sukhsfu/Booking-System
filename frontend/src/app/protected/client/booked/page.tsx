@@ -8,7 +8,7 @@ import TopBarNavigation from "@/components/commons/TopBarNavigation";
 const ClientBooked = () => {
   const userName = headers().get("userName");
   const request = new NextRequest(
-    `http://localhost:8010/appointment/getAllByClient`,
+    `${process.env.APPOINTMENT_URI}/appointment/getAllByClient`,
     {
       method: "GET",
       headers: {

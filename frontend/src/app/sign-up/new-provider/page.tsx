@@ -26,7 +26,7 @@ const ProviderSignUp = () => {
       }
       return preFormPosition + 1;
     });
-  }, [totalForms]);
+  }, [totalForms, router]);
 
   const onLoginSubmit = useCallback(
     (userName: string, password: string) => {
@@ -95,7 +95,7 @@ const ProviderSignUp = () => {
         (results) => results.status === 200 && onSubmitHandler()
       );
     },
-    [providerDetails, baseUrl]
+    [providerDetails, baseUrl, onSubmitHandler]
   );
 
   return (

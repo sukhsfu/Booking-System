@@ -53,12 +53,15 @@ const Table = ({ data, headers, selectAvailble = false }: Props) => {
       setSelectedKey(0);
       dispatch(onItemSelected(false));
     };
-  }, []);
+  }, [dispatch]);
 
-  const onRowSelected = useCallback((key: number | string) => {
-    setSelectedKey(key);
-    dispatch(onItemSelected(true));
-  }, []);
+  const onRowSelected = useCallback(
+    (key: number | string) => {
+      setSelectedKey(key);
+      dispatch(onItemSelected(true));
+    },
+    [dispatch]
+  );
 
   return (
     <Container>

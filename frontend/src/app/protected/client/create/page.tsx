@@ -49,7 +49,7 @@ const CreateAppointment: React.FC = () => {
       .then((res) => {
         setProvider(res);
       });
-  }, []);
+  }, [providerId]);
 
   const CreateAppointment = async (date: any) => {
     fetch(`create/api`, {

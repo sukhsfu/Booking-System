@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { NextRequest, NextResponse } from "next/server";
 export const POST = async (request: Request) => {
-  const url = `http://localhost:8000/provider/create`;
+  const url = `${process.env.PROVIDER_URI}/provider/create`;
 
   const userName = request.headers.get("userName");
 

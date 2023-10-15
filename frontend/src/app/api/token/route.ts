@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 export const POST = async (request: Request) => {
-  const url = `http://localhost:8080/auth/register`;
+  const url = `${process.env.IDENTITY_SERVICE_URI}/auth/register`;
   const serverRequest = new NextRequest(url, {
     method: request.method,
     headers: request.headers,

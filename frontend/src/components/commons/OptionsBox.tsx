@@ -50,7 +50,7 @@ const OptionsBox: React.FC<Props> = ({
 
   const handleClick = useCallback(() => {
     dispatch(onPlaceHolderChange({ placeHolderText, searchId }));
-  }, [placeHolderText, searchId]);
+  }, [placeHolderText, searchId, dispatch]);
 
   return (
     <BoxContainer onClick={handleClick} selected={selected}>

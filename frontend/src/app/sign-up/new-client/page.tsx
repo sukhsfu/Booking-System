@@ -24,7 +24,7 @@ const ClientSignUp = () => {
       }
       return preFormPosition + 1;
     });
-  }, []);
+  }, [router]);
 
   const onLoginSubmit = useCallback(
     (userName: string, password: string) => {
@@ -65,7 +65,7 @@ const ClientSignUp = () => {
         (results) => results.status === 200 && onSubmitHandler()
       );
     },
-    [baseUrl]
+    [baseUrl, onSubmitHandler]
   );
 
   return (

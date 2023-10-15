@@ -1,8 +1,9 @@
+//@ts-nocheck
 import { NextRequest, NextResponse } from "next/server";
 export const GET = async (request: NextRequest) => {
   const requestUrl = new URL(request.url);
   const providerId = requestUrl.searchParams.get("providerId");
-  const url = `http://localhost:8000/provider/providerAppointment/${providerId}`;
+  const url = `${process.env.PROVIDER_URI}/provider/providerAppointment/${providerId}`;
 
   const res = await fetch(url);
   const provider = await res.json();
@@ -10,7 +11,7 @@ export const GET = async (request: NextRequest) => {
 };
 
 export const POST = async (request: Request) => {
-  const url = "http://localhost:8010/appointment/create";
+  const url = `${process.env.APPOINTMENT_URI}/appointment/create`;
 
   const userName = request.headers.get("userName");
 
