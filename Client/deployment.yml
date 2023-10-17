@@ -23,7 +23,7 @@ spec:
         app: client-api
     spec:
       containers:
-      - image: sukhdhaliwal/client:0.0.1-SNAPSHOT
+      - image: sukhdhaliwal/client:0.0.2
         imagePullPolicy: IfNotPresent
         name: client
         resources:

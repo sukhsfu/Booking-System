@@ -23,7 +23,7 @@ spec:
         app: api-gateway
     spec:
       containers:
-      - image: sukhdhaliwal/api-gateway:0.0.4-SNAPSHOT
+      - image: sukhdhaliwal/api-gateway:0.0.5
         imagePullPolicy: IfNotPresent
         name: appointment
         envFrom:

@@ -23,7 +23,7 @@ spec:
         app: appointment-api
     spec:
       containers:
-      - image: sukhdhaliwal/appointment:0.0.1-SNAPSHOT
+      - image: sukhdhaliwal/appointment:0.0.2
         imagePullPolicy: IfNotPresent
         name: appointment
         envFrom:

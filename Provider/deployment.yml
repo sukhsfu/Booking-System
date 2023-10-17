@@ -23,7 +23,7 @@ spec:
         app: provider-api
     spec:
       containers:
-      - image: sukhdhaliwal/provider:0.0.1-SNAPSHOT
+      - image: sukhdhaliwal/provider:0.0.3
         imagePullPolicy: IfNotPresent
         name: provider
         resources:
