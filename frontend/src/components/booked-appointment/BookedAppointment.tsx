@@ -5,7 +5,7 @@ import Table from "@/components/commons/Table";
 import { NextRequest } from "next/server";
 
 const fetchData = async (request: NextRequest) => {
-  return fetch(request)
+  return fetch(request, { cache: "no-store" })
     .then((result) => {
       if (!result.ok) {
         throw new Error(`HTTP error! status: ${result.status}`);

@@ -1,6 +1,6 @@
 // @ts-nocheck
+export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 export const POST = async (request: Request) => {
   const url = `${process.env.IDENTITY_SERVICE_URI}/auth/register`;
   const serverRequest = new NextRequest(url, {
@@ -11,12 +11,10 @@ export const POST = async (request: Request) => {
   });
 
   const res = await fetch(serverRequest);
-  return res.text().then((userToken) => {
-    cookies().set("userToken", userToken);
-    const response = new NextResponse("Authenticated", {
-      status: 200,
-    });
-
-    return response;
+  const userToken = await res.text();
+  const response = new NextResponse("Authenticated", {
+    status: 200,
   });
+  response.cookies.set("userToken", userToken);
+  return response;
 };

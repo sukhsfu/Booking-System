@@ -23,7 +23,7 @@ spec:
         app: frontend-api
     spec:
       containers:
-        - image: sukhdhaliwal/frontend:0.0.1-SNAPSHOT
+        - image: sukhdhaliwal/frontend:0.0.6
           imagePullPolicy: IfNotPresent
           name: frontend
           envFrom:
