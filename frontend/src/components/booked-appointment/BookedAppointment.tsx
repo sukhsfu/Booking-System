@@ -1,11 +1,11 @@
 import React from "react";
-
+const { signal } = new AbortController();
 import styles from "./styles.module.css";
 import Table from "@/components/commons/Table";
 import { NextRequest } from "next/server";
 
 const fetchData = async (request: NextRequest) => {
-  return fetch(request, { cache: "no-store" })
+  return fetch(request, signal)
     .then((result) => {
       if (!result.ok) {
         throw new Error(`HTTP error! status: ${result.status}`);

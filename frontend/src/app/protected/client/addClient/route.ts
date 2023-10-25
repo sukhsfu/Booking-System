@@ -1,5 +1,4 @@
 // @ts-nocheck
-export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 export const POST = async (request: Request) => {
   const url = `${process.env.CLIENT_URI}/client/create`;
@@ -16,7 +15,7 @@ export const POST = async (request: Request) => {
         duplex: "half",
       });
     })
-    .then((serverRequest) => fetch(serverRequest, { cache: "no-store" }))
+    .then((serverRequest) => fetch(serverRequest))
     .then((res) => res.json())
     .then((client) => {
       return new NextResponse(client, {

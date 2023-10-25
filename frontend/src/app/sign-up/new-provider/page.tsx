@@ -13,6 +13,7 @@ const ProviderSignUp = () => {
   const totalForms = 3;
   const [formPosition, setFormPosition] = useState(1);
   const [providerDetails, setProviderDetails] = useState<any>(null);
+  const [login, setLogin] = useState<any>(null);
 
   useEffect(() => {
     const host = window.location.host;
@@ -30,6 +31,7 @@ const ProviderSignUp = () => {
 
   const onLoginSubmit = useCallback(
     (userName: string, password: string) => {
+      setLogin({ userName, password });
       const request = new NextRequest(`${baseUrl}/api/token`, {
         method: "POST",
         headers: {
@@ -49,6 +51,21 @@ const ProviderSignUp = () => {
     [onSubmitHandler, baseUrl]
   );
 
+  const onGetToken = useCallback(() => {
+    const request = new NextRequest(`${baseUrl}/api/token`, {
+      method: "POST",
+      headers: {
+        credentials: "include",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...login,
+        roles: ["PROVIDER"],
+      }),
+    });
+    fetch(request);
+  }, [login, baseUrl]);
+
   const onDetailsSubmit = useCallback(
     (
       name: string,
@@ -58,9 +75,10 @@ const ProviderSignUp = () => {
       price: string
     ) => {
       setProviderDetails({ name, email, phone, service, price });
+      onGetToken();
       onSubmitHandler();
     },
-    [onSubmitHandler]
+    [onSubmitHandler, onGetToken]
   );
 
   const onLocationsubmit = useCallback(

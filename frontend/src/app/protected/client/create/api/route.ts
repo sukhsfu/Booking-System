@@ -26,7 +26,7 @@ export const POST = async (request: Request) => {
         duplex: "half",
       });
     })
-    .then((serverRequest) => fetch(serverRequest, { cache: "no-store" }))
+    .then((serverRequest) => fetch(serverRequest))
     .then((res) => res.json())
     .then((appointment) => {
       return NextResponse.json(appointment);

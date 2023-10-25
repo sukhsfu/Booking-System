@@ -11,6 +11,7 @@ const ClientSignUp = () => {
   const totalForms = 2;
   const [baseUrl, setBaseurl] = useState<string>("");
   const [formPosition, setFormPosition] = useState(1);
+  const [login, setLogin] = useState<any>(null);
 
   useEffect(() => {
     const host = window.location.host;
@@ -47,8 +48,24 @@ const ClientSignUp = () => {
     [onSubmitHandler, baseUrl]
   );
 
+  const onGetToken = useCallback(() => {
+    const request = new NextRequest(`${baseUrl}/api/token`, {
+      method: "POST",
+      headers: {
+        credentials: "include",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...login,
+        roles: ["PROVIDER"],
+      }),
+    });
+    fetch(request);
+  }, [login, baseUrl]);
+
   const onDetailSubmit = useCallback(
     (name: string, email: string, phone: string) => {
+      onGetToken();
       const request = new NextRequest(`${baseUrl}/protected/client/addClient`, {
         method: "POST",
         headers: {
@@ -65,7 +82,7 @@ const ClientSignUp = () => {
         (results) => results.status === 200 && onSubmitHandler()
       );
     },
-    [baseUrl, onSubmitHandler]
+    [baseUrl, onSubmitHandler, onGetToken]
   );
 
   return (
