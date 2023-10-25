@@ -10,7 +10,7 @@ export const POST = async (request: Request) => {
     duplex: "half",
   });
 
-  const res = await fetch(serverRequest, { cache: "no-store" });
+  const res = await fetch(serverRequest);
   const userToken = await res.text();
   cookies().set("userToken", userToken);
   const response = new NextResponse("Authenticated", {

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 const { signal } = new AbortController();
 import styles from "./styles.module.css";

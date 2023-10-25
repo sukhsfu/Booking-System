@@ -51,7 +51,7 @@ const ProviderSignUp = () => {
     [onSubmitHandler, baseUrl]
   );
 
-  const onGetToken = useCallback(() => {
+  const onGetToken = () => {
     const request = new NextRequest(`${baseUrl}/api/token`, {
       method: "POST",
       headers: {
@@ -64,22 +64,19 @@ const ProviderSignUp = () => {
       }),
     });
     fetch(request);
-  }, [login, baseUrl]);
+  };
 
-  const onDetailsSubmit = useCallback(
-    (
-      name: string,
-      email: string,
-      phone: string,
-      service: string,
-      price: string
-    ) => {
-      setProviderDetails({ name, email, phone, service, price });
-      onGetToken();
-      onSubmitHandler();
-    },
-    [onSubmitHandler, onGetToken]
-  );
+  const onDetailsSubmit = (
+    name: string,
+    email: string,
+    phone: string,
+    service: string,
+    price: string
+  ) => {
+    setProviderDetails({ name, email, phone, service, price });
+    onGetToken();
+    onSubmitHandler();
+  };
 
   const onLocationsubmit = useCallback(
     (

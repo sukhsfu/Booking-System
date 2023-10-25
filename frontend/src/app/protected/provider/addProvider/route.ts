@@ -4,7 +4,6 @@ export const POST = async (request: Request) => {
   const url = `${process.env.PROVIDER_URI}/provider/create`;
 
   const userName = request.headers.get("userName");
-
   return request
     .json()
     .then((body) => {

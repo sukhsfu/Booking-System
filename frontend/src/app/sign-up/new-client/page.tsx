@@ -27,8 +27,15 @@ const ClientSignUp = () => {
     });
   }, [router]);
 
+  useEffect(() => {
+    if (formPosition == 2) {
+      onGetToken();
+    }
+  }, [formPosition]);
+
   const onLoginSubmit = useCallback(
     (userName: string, password: string) => {
+      setLogin({ userName, password });
       const request = new NextRequest(`${baseUrl}/api/token`, {
         method: "POST",
         headers: {
@@ -48,7 +55,7 @@ const ClientSignUp = () => {
     [onSubmitHandler, baseUrl]
   );
 
-  const onGetToken = useCallback(() => {
+  const onGetToken = () => {
     const request = new NextRequest(`${baseUrl}/api/token`, {
       method: "POST",
       headers: {
@@ -61,29 +68,25 @@ const ClientSignUp = () => {
       }),
     });
     fetch(request);
-  }, [login, baseUrl]);
+  };
 
-  const onDetailSubmit = useCallback(
-    (name: string, email: string, phone: string) => {
-      onGetToken();
-      const request = new NextRequest(`${baseUrl}/protected/client/addClient`, {
-        method: "POST",
-        headers: {
-          credentials: "include",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-        }),
-      });
-      fetch(request).then(
-        (results) => results.status === 200 && onSubmitHandler()
-      );
-    },
-    [baseUrl, onSubmitHandler, onGetToken]
-  );
+  const onDetailSubmit = (name: string, email: string, phone: string) => {
+    const request = new NextRequest(`${baseUrl}/protected/client/addClient`, {
+      method: "POST",
+      headers: {
+        credentials: "include",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+      }),
+    });
+    fetch(request).then(
+      (results) => results.status === 200 && onSubmitHandler()
+    );
+  };
 
   return (
     <>
